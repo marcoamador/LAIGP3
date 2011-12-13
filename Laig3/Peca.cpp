@@ -8,3 +8,17 @@
 
 #include <iostream>
 #include "Peca.h"
+
+int Peca::id_s=1;
+
+Peca::Peca(){
+    this->id=id_s;
+    this->id_s++;
+}
+
+int Peca::draw(GLenum mode){
+    if (mode == GL_SELECT)
+		glLoadName (this->id);	
+    glCallList(peca);
+    return 0;
+}

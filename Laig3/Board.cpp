@@ -46,15 +46,19 @@ Board::Board(unsigned int l){
     
 }
 
-int Board::draw(){
+int Board::draw(GLenum mode){
     glCallList(3);
     glPushMatrix();
-    moveto(0, 0);
-    glCallList(10);
-    glPopMatrix();
-    glPushMatrix();
-    moveto(1, 0);
-    glCallList(10);
+    for (int i=0; i<this->board.size(); i++) {
+        for (int j=0; j<this->board[i].size(); j++) {
+            if(this->board[i][j]!=NULL){
+                glPushMatrix();
+                moveto(j, i);
+                this->board[i][j]->draw(mode);
+                glPopMatrix();
+            }
+        }
+    }
     glPopMatrix();
     return 0;
 

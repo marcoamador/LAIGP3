@@ -95,9 +95,9 @@ void drawScene(GLenum mode)
 	if (mode == GL_SELECT)
 		glLoadName (0);	
 	//glCallList(mesaList);
-    tabuleiro->draw();
-    glTranslated(0, 1, 0);
-    glCallList(peca);
+    tabuleiro->draw(mode);
+    //glTranslated(0, 1, 0);
+    //glCallList(peca);
 	/*// esfera 1
 	if (mode == GL_SELECT)
 	{
