@@ -23,6 +23,8 @@ using namespace std;
 class Board {
     vector<vector<Peca*> > board;
     RGBpixmap pix;
+    int n_vertices;
+    int Board::moveto(int x, int y);
 public:
     Board();
     Board(unsigned int l);

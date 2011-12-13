@@ -95,7 +95,8 @@ void drawScene(GLenum mode)
 	if (mode == GL_SELECT)
 		glLoadName (0);	
 	//glCallList(mesaList);
-    //tabuleiro->draw();
+    tabuleiro->draw();
+    glTranslated(0, 1, 0);
     glCallList(peca);
 	/*// esfera 1
 	if (mode == GL_SELECT)
@@ -426,7 +427,7 @@ void inicializacao()
 		glPopMatrix();
 	glEndList();
     
-    tabuleiro= new Board(30);
+    tabuleiro= new Board(6);
     glNewList(peca, GL_COMPILE);
     DrawMesh(indexes, vertexs);
     glEndList();
