@@ -8,9 +8,10 @@
 #endif
 
 #include <math.h>
+#include "Board.h"
 #include "RGBpixmap.h"
 #include "pick.h"
-
+#include "misc.h"
 #define DIMX 500
 #define DIMY 500
 #define INITIALPOS_X 100
@@ -18,7 +19,7 @@
 
 #define BUFSIZE 512
 
-#define VLENGTH 3
+
 #define mesaList 1
 
 float xy_aspect;		// aspect ratio da area de visualizacao
@@ -50,131 +51,11 @@ float dx=0.0, dy=0.0, dz=0.0, dxAc=0.0, dzAc=0.0;	// variaveis auxiliares de pos
 float Xini=0, Yini=0;
 picking *pk;										// apontador para a classe que controla a posicao dos objectos
 
-/* Function to normalise a vector to unit length */
-void normalise(GLdouble *vec)
-{
-  GLdouble length = 0.0;
-  int i;
 
-  for (i=0;i<VLENGTH;i++){
-     length += vec[i]*vec[i]; 
-  }
-  length= (GLdouble) sqrt((double)length); 
-
-  for (i=0;i<VLENGTH;i++){
-     vec[i] = vec[i]/length; 
-  }
-}
+Board * tabuleiro=NULL;
 
 
 
-
-void newellSquare(GLdouble *vec1,GLdouble *vec2,GLdouble *vec3,GLdouble *vec4,GLdouble *normal)
-{
-  normal[0] = (vec1[1]-vec2[1])*(vec1[2]+vec2[2]) + 
-	      (vec2[1]-vec3[1])*(vec2[2]+vec3[2]) + 
-	      (vec3[1]-vec4[1])*(vec3[2]+vec4[2]) +
-	      (vec4[1]-vec1[1])*(vec4[2]+vec1[2]);
-  normal[1] = (vec1[2]-vec2[2])*(vec1[0]+vec2[0]) + 
-	      (vec2[2]-vec3[2])*(vec2[0]+vec3[0]) + 
-	      (vec3[2]-vec4[2])*(vec3[0]+vec4[0]) +
-	      (vec4[2]-vec1[2])*(vec4[0]+vec1[0]);
-  normal[2] = (vec1[0]-vec2[0])*(vec1[1]+vec2[1]) + 
-	      (vec2[0]-vec3[0])*(vec2[1]+vec3[1]) + 
-	      (vec3[0]-vec4[0])*(vec3[1]+vec4[1]) +
-	      (vec4[0]-vec1[0])*(vec4[1]+vec1[1]);
-
-  normalise(normal);
-
-}
-
-void paralelo(GLdouble dimx, GLdouble dimy, GLdouble dimz){
-	GLdouble dx=dimx/2, dy=dimy/2, dz=dimz/2;
-	
-	GLdouble v1[3] = {dx,-dy,dz};
-	GLdouble v2[3] = {dx,-dy,-dz};
-	GLdouble v3[3] = {dx,dy,dz};
-	GLdouble v4[3] = {dx,dy,-dz};
-	GLdouble v5[3] = {-dx,-dy,dz};
-	GLdouble v6[3] = {-dx,dy,dz};
-	GLdouble v7[3] = {-dx,dy,-dz};
-	GLdouble v8[3] = {-dx,-dy,-dz};
-	GLdouble normal[VLENGTH];
-
-	float mat_shininess[] = {20.0}; /* How shiny is the object (specular exponent)  */
-	float mat_specular[] = {1.0, 1.0, 1.0, 1.0}; /* specular reflection. */
-	float mat_diffuse[] = {1.0, 1.00, 1.00, 1.0}; /* diffuse reflection. */
-	// define as caracteristicas do material (dos materiais seguintes, i.e. ate nova alteracao
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-
-
-	//Face frente - 0
-	newellSquare(v1,v3,v6,v5,normal);
-	glBegin(GL_POLYGON);
-	    glNormal3dv(normal);
-		glVertex3dv(v1);
-		glVertex3dv(v3);
-		glVertex3dv(v6);
-		glVertex3dv(v5);
-	glEnd();
-
-	// face anterior - 1
-	newellSquare(v8,v7,v4,v2,normal);
-	glBegin(GL_POLYGON);
-	    glNormal3dv(normal);
-		glVertex3dv(v8);
-		glVertex3dv(v7);
-		glVertex3dv(v4);
-		glVertex3dv(v2);
-	glEnd();
-
-	// face lateral - 2
-	newellSquare(v2,v4,v3,v1,normal);
-	glBegin(GL_POLYGON);
- 	    glNormal3dv(normal);
-		glVertex3dv(v2);
-		glVertex3dv(v4);
-		glVertex3dv(v3);
-		glVertex3dv(v1);
-	glEnd();
-
-	newellSquare(v5,v6,v7,v8,normal);
-	glBegin(GL_POLYGON);
-	    glNormal3dv(normal);
-		glVertex3dv(v5);
-		glVertex3dv(v6);
-		glVertex3dv(v7);
-		glVertex3dv(v8);
-	glEnd();
-
-	// base
-	newellSquare(v1,v5,v8,v2,normal);
-	glBegin(GL_POLYGON);
-	    glNormal3dv(normal);
-		glVertex3dv(v1);
-		glVertex3dv(v5);
-		glVertex3dv(v8);
-		glVertex3dv(v2);
-	glEnd();
-
-
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 2001);			// activa a textura 2001
-
-	// topo 
-	newellSquare(v3,v4,v7,v6,normal);
-	glBegin(GL_POLYGON);
-	    glNormal3dv(normal);
-		glTexCoord2f(0.0,0.0); glVertex3dv(v3);
-		glTexCoord2f(1.0,0.0); glVertex3dv(v4);
-		glTexCoord2f(1.0,1.0); glVertex3dv(v7);
-		glTexCoord2f(0.0,1.0); glVertex3dv(v6);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
-
-}
 
 
 void drawScene(GLenum mode)
@@ -191,8 +72,8 @@ void drawScene(GLenum mode)
 	// tabuleiro
 	if (mode == GL_SELECT)
 		glLoadName (0);	
-	glCallList(mesaList);
-
+	//glCallList(mesaList);
+    tabuleiro->draw();
 
 	// esfera 1
 	if (mode == GL_SELECT)
@@ -521,6 +402,8 @@ void inicializacao()
 		paralelo(10.0,1.0,10.0);
 		glPopMatrix();
 	glEndList();
+    
+    tabuleiro= new Board(30);
 
 
 }

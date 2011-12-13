@@ -32,6 +32,31 @@ void RGBpixmap::makeCheckBoard()
 
 }
 
+void RGBpixmap::makeCheckBoard2()
+{
+	int count, i, j, c;
+    
+	nRows = nCols = 32;
+    
+	pixel = new RGB[3 * nRows * nCols];
+	if (!pixel) 
+		return;
+	count = 0;
+    
+	for(i=0; i<nRows; i++)
+	{
+		for(j=0; j<nCols; j++)
+		{
+			c = (((i/8) + (j/8)) % 2) * 255;
+			pixel[count].r = c;
+			pixel[count].g = c;
+			pixel[count++].b = c;
+		}
+	}
+    
+}
+
+
 
 
 void RGBpixmap::setTexture(GLuint textureName)

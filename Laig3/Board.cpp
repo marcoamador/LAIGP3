@@ -9,12 +9,26 @@
 #include <iostream>
 #include "Board.h"
 
+static int size_casa=1;
 
-Board::Board(int c, int l){
-
+Board::Board(unsigned int l){
+    pix.makeCheckBoard2();				// cria texturas
+	pix.setTexture(200);
+    this->board.erase(board.begin(), board.end());
+    vector<Peca *> b(l+1,NULL);
+    vector<vector<Peca * > > a(l+1,b);    
+    glNewList(3, GL_COMPILE);
+	
+    glPushMatrix();
+    paralelo2(size_casa*l, size_casa, size_casa*l,200,l);
+    glPopMatrix();
+  
+	glEndList();
+    
 }
 
 int Board::draw(){
+    glCallList(3);
     return 0;
 
 };

@@ -7,7 +7,14 @@
 //
 
 #include <vector>
+#ifdef __APPLE__
+#include <GLUI/GLUI.h>
+#else
+#include <gl/glui.h>
+#endif
 #include "Peca.h"
+#include "misc.h"
+#include "RGBpixmap.h"
 #ifndef Laig3_Board_h
 #define Laig3_Board_h
 
@@ -15,10 +22,10 @@ using namespace std;
 
 class Board {
     vector<vector<Peca*> > board;
-    
+    RGBpixmap pix;
 public:
     Board();
-    Board(int c, int l);
+    Board(unsigned int l);
     int draw();
 };
 

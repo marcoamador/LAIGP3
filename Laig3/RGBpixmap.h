@@ -1,4 +1,4 @@
-
+#pragma once
 class RGB{
 public:
 	unsigned char r,g,b;
@@ -20,6 +20,7 @@ class RGBpixmap{
 	}
 	int readBMPFile(char * fname);
 	void makeCheckBoard();
+    void makeCheckBoard2();
 	void setTexture(GLuint textureName);
 
 };

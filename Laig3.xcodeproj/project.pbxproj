@@ -15,6 +15,7 @@
 		2C4BECDC1496BCE10010A59A /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4BECDB1496BCE10010A59A /* GLUT.framework */; };
 		2C4BECDE1496C3750010A59A /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECDD1496C3750010A59A /* Board.cpp */; };
 		2C4BECE21496C50F0010A59A /* Peca.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECE11496C50F0010A59A /* Peca.cpp */; };
+		2C6EE0661497AAA40001705A /* misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EE0651497AAA40001705A /* misc.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,9 @@
 		2C4BECDF1496C3840010A59A /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
 		2C4BECE01496C5040010A59A /* Peca.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Peca.h; sourceTree = "<group>"; };
 		2C4BECE11496C50F0010A59A /* Peca.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Peca.cpp; sourceTree = "<group>"; };
+		2C6EE0631497A5300001705A /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
+		2C6EE0651497AAA40001705A /* misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = misc.cpp; sourceTree = "<group>"; };
+		2C6EE0671497C4150001705A /* peca.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = peca.h; path = ../../../Desktop/peca.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 		2C4BECC71496B9760010A59A /* Laig3 */ = {
 			isa = PBXGroup;
 			children = (
+				2C6EE0671497C4150001705A /* peca.h */,
 				2C4BECD11496BA920010A59A /* pick.h */,
 				2C4BECD21496BA920010A59A /* RGBpixmap.cpp */,
 				2C4BECD31496BA920010A59A /* RGBpixmap.h */,
@@ -91,6 +96,8 @@
 				2C4BECDF1496C3840010A59A /* Board.h */,
 				2C4BECE01496C5040010A59A /* Peca.h */,
 				2C4BECE11496C50F0010A59A /* Peca.cpp */,
+				2C6EE0631497A5300001705A /* misc.h */,
+				2C6EE0651497AAA40001705A /* misc.cpp */,
 			);
 			path = Laig3;
 			sourceTree = "<group>";
@@ -146,6 +153,7 @@
 				2C4BECD61496BA920010A59A /* trab2.cpp in Sources */,
 				2C4BECDE1496C3750010A59A /* Board.cpp in Sources */,
 				2C4BECE21496C50F0010A59A /* Peca.cpp in Sources */,
+				2C6EE0661497AAA40001705A /* misc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +238,7 @@
 				2C4BECD01496B9760010A59A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
