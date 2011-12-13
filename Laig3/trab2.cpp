@@ -6,7 +6,7 @@
 #else
 #include <gl/glui.h>
 #endif
-
+#include "boarditem.h"
 #include <math.h>
 #include "Board.h"
 #include "RGBpixmap.h"
@@ -56,13 +56,35 @@ Board * tabuleiro=NULL;
 
 
 
+GLuint vbo;
+GLuint vinx;
 
+int peca=10;
+
+#define BUFFER_OFFSET(x)((char *)NULL+(x))
+
+void DrawMesh(unsigned short * indexes, struct vertex_struct * vertexs) {
+    glPushMatrix();
+	
+    glRotated(-90,1,0,0);
+    for(size_t i=0; i<FACES_COUNT*3;i=i+3){
+        struct vertex_struct f1=vertexs[indexes[i]];
+         struct vertex_struct f2=vertexs[indexes[i+1]];
+         struct vertex_struct f3=vertexs[indexes[i+2]];
+        glBegin(GL_TRIANGLES);
+        glNormal3f(f1.nx, f1.ny, f1.nz);glVertex3f(f1.x,f1.y,f1.z);
+        glNormal3f(f2.nx, f2.ny, f2.nz);glVertex3f(f2.x,f2.y,f2.z);
+        glNormal3f(f3.nx, f3.ny, f3.nz);glVertex3f(f3.x,f3.y,f3.z);
+        glEnd();
+    }
+    glPopMatrix();
+}
 
 void drawScene(GLenum mode)
 {
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
-
+    
 	
 	glTranslated(0.0,0.0,-30.0);
 	glRotated(45.0, 1.0,0.0,0.0 );
@@ -73,9 +95,9 @@ void drawScene(GLenum mode)
 	if (mode == GL_SELECT)
 		glLoadName (0);	
 	//glCallList(mesaList);
-    tabuleiro->draw();
-
-	// esfera 1
+    //tabuleiro->draw();
+    glCallList(peca);
+	/*// esfera 1
 	if (mode == GL_SELECT)
 	{
 		glLoadName (4);
@@ -143,10 +165,11 @@ void drawScene(GLenum mode)
 		glTranslated(dx, dy, dz);
 	glTranslated(1.0,1.0,2.0);
 	glutSolidTeapot(0.80);
-	glPopMatrix();
+	
+    glPopMatrix();
 
 	// fim teapot
-
+*/
 	glDisable(GL_COLOR_MATERIAL);
 
 }
@@ -404,7 +427,9 @@ void inicializacao()
 	glEndList();
     
     tabuleiro= new Board(30);
-
+    glNewList(peca, GL_COMPILE);
+    DrawMesh(indexes, vertexs);
+    glEndList();
 
 }
 

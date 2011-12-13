@@ -8,7 +8,7 @@
 
 #ifndef Laig3_Peca_h
 #define Laig3_Peca_h
-
+extern int peca;
 class Peca {
     
     

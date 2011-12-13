@@ -47,7 +47,7 @@
 		2C4BECE11496C50F0010A59A /* Peca.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Peca.cpp; sourceTree = "<group>"; };
 		2C6EE0631497A5300001705A /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
 		2C6EE0651497AAA40001705A /* misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = misc.cpp; sourceTree = "<group>"; };
-		2C6EE0671497C4150001705A /* peca.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = peca.h; path = ../../../Desktop/peca.h; sourceTree = "<group>"; };
+		2C6EE0691497D92E0001705A /* boarditem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boarditem.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		2C4BECC71496B9760010A59A /* Laig3 */ = {
 			isa = PBXGroup;
 			children = (
-				2C6EE0671497C4150001705A /* peca.h */,
+				2C6EE0691497D92E0001705A /* boarditem.h */,
 				2C4BECD11496BA920010A59A /* pick.h */,
 				2C4BECD21496BA920010A59A /* RGBpixmap.cpp */,
 				2C4BECD31496BA920010A59A /* RGBpixmap.h */,
