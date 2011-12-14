@@ -10,6 +10,7 @@
 #include <math.h>
 #include "Board.h"
 #include "RGBpixmap.h"
+#include <iostream>
 #include "pick.h"
 #include "misc.h"
 #define DIMX 500
@@ -267,8 +268,12 @@ void processMouse(int button, int state, int x, int y)
 	Yini = -x*view_rotate[2] + y*view_rotate[10];
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
-	{	pk->setDxyz(dx, 0.0, dz);		// o objecto seleccionado esta registado em pk
-		return;
+	{	
+        //std::cout<<"x: "<<x<<"z: "<<y<<std::endl;
+        pk->setDxyz(dx, 0.0, dz);		// o objecto seleccionado esta registado em pk
+		tabuleiro->processmove(pk->getObjecto(), dx, 0, dz);
+        pk->resetdAc();
+        return;
 	}
 
 	glGetIntegerv (GL_VIEWPORT, viewport);
@@ -309,7 +314,7 @@ void processMouseMoved(int x, int y)
 
 	dx = dxAc + (float)(x1 - Xini)/20.0;
 	dz = dzAc + (float)(y1 - Yini)/20.0;
-
+    cout<<"dx: "<<dx<<" dz: "<<dz<<endl;
 	// pedido de refrescamento da janela
 	// glutPostRedisplay();				
 

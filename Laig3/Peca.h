@@ -23,10 +23,14 @@ class Peca {
 public:
     Peca();
     Peca(int player){
-        Peca();
+        this->id=id_s;
+        this->id_s++;
         this->player=player;
     };
     int draw(GLenum mode);
+    int getId(){
+        return id;
+    }
 };
 
 

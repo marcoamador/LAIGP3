@@ -62,6 +62,18 @@ public:
 	float getDy(int i)
 	{	return(dAc[i].y);
 	}
+    void resetdAc(){
+        int i;
+		for (i=0; i<nobj; i++){
+			dAc[i].x = 0;
+            dAc[i].y = 0;
+            dAc[i].z = 0;
+        }
+    }
+    int getObjecto(){
+        return objectoSeleccionado;
+    }
+    
 	void setDxyz(float x, float y, float z)
 	{	dAc[objectoSeleccionado].x = x;
 		dAc[objectoSeleccionado].y = y;

@@ -29,6 +29,7 @@ public:
     Board();
     Board(unsigned int l);
     int draw(GLenum mode);
+    int processmove(int index,float x, float y, float z);
 };
 
 #endif

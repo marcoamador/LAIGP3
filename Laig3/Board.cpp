@@ -29,6 +29,46 @@ int Board::moveto(int x, int y){
     glTranslated(dx*size_casa, 1, dy*size_casa);
 }
 
+int Board::processmove(int index,float x, float y, float z){
+    int dx=0;
+    int dz=0;
+    if((x>=1.3) || (x<=-1.3) ){
+        if(x>0){
+            dx=1;
+        }else{
+            dx=-1;
+        }
+    }
+    if((z>=1.3) || (z<=-1.3) ){
+        if(z>0){
+            dz=1;
+        }else{
+            dz=-1;
+        }
+    }
+    
+    if(dx!=0 || dz!=0)
+    for (int i=0; i<this->board.size(); i++) {
+        for (int j=0; j<this->board[i].size(); j++) {
+            if(this->board[i][j]!=NULL){
+                if (this->board[i][j]->getId()==index) {
+                    if((j+dx)<this->board[i].size() && (i+dz)<this->board.size()){
+                        if(this->board[i+dz][j+dx]==NULL){
+                            this->board[i+dz][j+dx]=this->board[i][j];
+                            this->board[i][j]=NULL;
+                            i=this->board.size();
+                            j=this->board[i].size();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    
+    return 0;
+}
+
 Board::Board(unsigned int l){
     pix.makeCheckBoard2();				// cria texturas
 	pix.setTexture(200);
