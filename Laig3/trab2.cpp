@@ -56,6 +56,7 @@ picking *pk;										// apontador para a classe que controla a posicao dos obje
 Board * tabuleiro=NULL;
 
 bool changesides=false;
+float angler=0;
 
 GLuint vbo;
 GLuint vinx;
@@ -90,14 +91,31 @@ void drawScene(GLenum mode)
 	glTranslated(0.0,0.0,-30.0);
 	glRotated(45.0, 1.0,0.0,0.0 );
     if(changesides){
-        glRotated(180, 0, 1.0, 0);
+        if(angler<180){
+            angler++;
+        }else{
+            angler=180;
+        }
+        
+    }else{
+        if(angler>0){
+            angler--;
+        }else{
+            angler=0;
+        }
+        
     }
+    glRotated(angler, 0, 1.0, 0);
     glTranslatef( obj_pos[0], obj_pos[1], -obj_pos[2] ); 
 	glMultMatrixf( view_rotate );
 
 	// tabuleiro
 	
 	//glCallList(mesaList);
+    if(angler!=0 && angler!=180){
+        mode=GL_RENDER;
+    
+    }
     tabuleiro->draw(mode);
     //glTranslated(0, 1, 0);
     //glCallList(peca);
