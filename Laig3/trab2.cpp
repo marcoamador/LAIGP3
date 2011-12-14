@@ -293,6 +293,7 @@ void processMouse(int button, int state, int x, int y)
         //std::cout<<"x: "<<x<<"z: "<<y<<std::endl;
         pk->setDxyz(dx, 0.0, dz);		// o objecto seleccionado esta registado em pk
         cout<<"zoom: "<<sqrt(pow(obj_pos[0], 2.0)+pow(obj_pos[1], 2.0)+pow(obj_pos[2], 2.0))<<endl;
+        cout<<"rotate "<<view_rotate[0]<<view_rotate[1]<<view_rotate[2]<<view_rotate[3]<<view_rotate[4]<<view_rotate[5]<<view_rotate[6]<<view_rotate[7]<<view_rotate[8]<<view_rotate[9]<<view_rotate[10]<<view_rotate[11]<<view_rotate[12]<<view_rotate[13]<<view_rotate[14]<<view_rotate[15]<<endl;
 		float dxx=dx,dzz=dz;
         if(changesides){
             dxx=-dxx;
@@ -513,7 +514,7 @@ int main(int argc, char* argv[])
 	inicializacao();
    
 	// numero de objectos para picking
-	pk = new picking(70);
+	pk = new picking(10*10*2);
 
 	glutMainLoop();
 

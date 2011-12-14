@@ -104,6 +104,26 @@ int Board::draw(GLenum mode){
 		glLoadName (0);	
     glCallList(5);
     glPushMatrix();
+    int max=this->n_vertices*this->n_vertices+1;
+    for (int i=0; i<this->board.size(); i++) {
+        for (int j=0; j<this->board[i].size(); j++) {
+           if(this->board[i][j]==NULL){ 
+                glPushMatrix();
+                 moveto(j, i);
+            glPushName(max);
+            glBegin(GL_POLYGON);
+            glVertex3d(-0.5, 0, 0.5);
+            glVertex3d(-0.5, 0, 0.0);
+             glVertex3d(0.5, 0, 0);
+             glVertex3d(0.5, 0, 0.5);
+            glEnd();
+                
+                glPopMatrix();
+               }
+            max++;
+            
+        }
+    }
     for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
             if(this->board[i][j]!=NULL){
