@@ -65,7 +65,7 @@ int peca=10;
 
 void DrawMesh(unsigned short * indexes, struct vertex_struct * vertexs) {
     glPushMatrix();
-	
+	glRotated(90, 0, 1, 0);
     glRotated(-90,1,0,0);
     for(size_t i=0; i<FACES_COUNT*3;i=i+3){
         struct vertex_struct f1=vertexs[indexes[i]];
@@ -92,8 +92,7 @@ void drawScene(GLenum mode)
 	glMultMatrixf( view_rotate );
 
 	// tabuleiro
-	if (mode == GL_SELECT)
-		glLoadName (0);	
+	
 	//glCallList(mesaList);
     tabuleiro->draw(mode);
     //glTranslated(0, 1, 0);
@@ -427,7 +426,7 @@ void inicializacao()
 		glPopMatrix();
 	glEndList();
     
-    tabuleiro= new Board(6);
+    tabuleiro= new Board(9);
     glNewList(peca, GL_COMPILE);
     DrawMesh(indexes, vertexs);
     glEndList();
@@ -480,7 +479,7 @@ int main(int argc, char* argv[])
 	inicializacao();
    
 	// numero de objectos para picking
-	pk = new picking(5);
+	pk = new picking(70);
 
 	glutMainLoop();
 

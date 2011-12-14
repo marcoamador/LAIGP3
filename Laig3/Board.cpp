@@ -34,8 +34,9 @@ Board::Board(unsigned int l){
 	pix.setTexture(200);
     this->board.erase(board.begin(), board.end());
     vector<Peca *> b(l+1,NULL);
-    vector<vector<Peca * > > a(l+1,b);    
-    glNewList(3, GL_COMPILE);
+    vector<vector<Peca * > > a(l+1,b);   
+    this->board=a;
+    glNewList(5, GL_COMPILE);
 	
     glPushMatrix();
     paralelo2(size_casa*l, 1, size_casa*l,200,l);
@@ -43,11 +44,23 @@ Board::Board(unsigned int l){
   
 	glEndList();
     this->n_vertices=l+1;
+    for(int x=1;x<n_vertices;x+=2){
+        for(int y=1;y<4;y++){
+            this->board[y][x]=new Peca();
+        }
+    }
+    for(int x=0;x<n_vertices;x+=2){
+        for(int y=6;y<n_vertices-1;y++){
+            this->board[y][x]=new Peca();
+        }
+    }
     
 }
 
 int Board::draw(GLenum mode){
-    glCallList(3);
+    if (mode == GL_SELECT)
+		glLoadName (0);	
+    glCallList(5);
     glPushMatrix();
     for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
