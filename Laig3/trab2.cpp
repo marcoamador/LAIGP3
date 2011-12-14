@@ -292,7 +292,7 @@ void processMouse(int button, int state, int x, int y)
 	{	
         //std::cout<<"x: "<<x<<"z: "<<y<<std::endl;
         pk->setDxyz(dx, 0.0, dz);		// o objecto seleccionado esta registado em pk
-        cout<<"zoom: "<<sqrt(pow(obj_pos[0], 2.0)+pow(obj_pos[1], 2.0)+pow(obj_pos[2], 2.0))<<endl;
+        /*cout<<"zoom: "<<sqrt(pow(obj_pos[0], 2.0)+pow(obj_pos[1], 2.0)+pow(obj_pos[2], 2.0))<<endl;
         cout<<"rotate "<<view_rotate[0]<<view_rotate[1]<<view_rotate[2]<<view_rotate[3]<<view_rotate[4]<<view_rotate[5]<<view_rotate[6]<<view_rotate[7]<<view_rotate[8]<<view_rotate[9]<<view_rotate[10]<<view_rotate[11]<<view_rotate[12]<<view_rotate[13]<<view_rotate[14]<<view_rotate[15]<<endl;
 		float dxx=dx,dzz=dz;
         if(changesides){
@@ -300,7 +300,8 @@ void processMouse(int button, int state, int x, int y)
             dzz=-dzz;
         }
         if(tabuleiro->processmove(pk->getObjecto(), dxx, 0, dzz))
-            changesides=!changesides;
+            changesides=!changesides;*/
+        tabuleiro->tryselect(pk->getObjecto());
         pk->resetdAc();
         
         return;
@@ -341,10 +342,10 @@ void processMouseMoved(int x, int y)
 
 	x1 = x*view_rotate[0] - y*view_rotate[8];
 	y1 = -x*view_rotate[2] + y*view_rotate[10];
-
+    
 	dx = dxAc + (float)(x1 - Xini)/20.0;
 	dz = dzAc + (float)(y1 - Yini)/20.0;
-    cout<<"dx: "<<dx<<" dz: "<<dz<<endl;
+    cout<<"Peca: "<<pk->getObjecto()<<" dx: "<<dx<<" dz: "<<dz<<endl;
 	// pedido de refrescamento da janela
 	// glutPostRedisplay();				
 

@@ -25,11 +25,14 @@ class Board {
     RGBpixmap pix;
     int n_vertices;
     int moveto(int x, int y);
+    int select;
+    int sx,sy;
 public:
     Board();
     Board(unsigned int l);
     int draw(GLenum mode);
     int processmove(int index,float x, float y, float z);
+    int tryselect(int i);
 };
 
 #endif

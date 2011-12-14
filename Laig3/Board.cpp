@@ -72,6 +72,7 @@ int Board::processmove(int index,float x, float y, float z){
 }
 
 Board::Board(unsigned int l){
+    select=-1;
     pix.makeCheckBoard2();				// cria texturas
 	pix.setTexture(200);
     this->board.erase(board.begin(), board.end());
@@ -97,6 +98,43 @@ Board::Board(unsigned int l){
         }
     }
     
+}
+
+int Board::tryselect(int index){
+    if(select<0){ 
+        cout<<"selecionada: "<<index<<endl;
+        for (int i=0; i<this->board.size(); i++) {
+        for (int j=0; j<this->board[i].size(); j++) {
+            if(this->board[i][j]!=NULL){
+                if(this->board[i][j]->getId()==index){
+                    select=index;
+                    sx=j;
+                    sy=i;
+                    return 1;
+                }
+            }
+        }
+       }
+    }else{
+        cout<<"casa selecionada: "<<index<<endl;
+        int max=this->n_vertices*this->n_vertices+1;
+        for (int i=0; i<this->board.size(); i++) {
+            for (int j=0; j<this->board[i].size(); j++) {
+                //cout<<"Max: "<<max<<endl;
+                    if(max==index){
+                        this->board[i][j]=this->board[sy][sx];
+                        this->board[sy][sx]=NULL;
+                        select=-1;
+                        return 1;
+                        
+                    }
+                
+                max++;
+            }
+        }
+    
+    }
+    return 0;
 }
 
 int Board::draw(GLenum mode){
