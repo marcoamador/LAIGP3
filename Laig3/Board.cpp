@@ -125,7 +125,7 @@ int Board::tryselect(int index){
                         this->board[i][j]=this->board[sy][sx];
                         this->board[sy][sx]=NULL;
                         select=-1;
-                        return 1;
+                        return 2;
                         
                     }
                 
@@ -150,10 +150,10 @@ int Board::draw(GLenum mode){
                  moveto(j, i);
             glPushName(max);
             glBegin(GL_POLYGON);
-            glVertex3d(-0.5, 0, 0.5);
-            glVertex3d(-0.5, 0, 0.0);
-             glVertex3d(0.5, 0, 0);
-             glVertex3d(0.5, 0, 0.5);
+            glVertex3d(-0.5, -0.49, 0.5);
+            glVertex3d(-0.5, -0.49, -0.5);
+             glVertex3d(0.5, -0.49, -0.5);
+             glVertex3d(0.5, -0.49, 0.5);
             glEnd();
                 
                 glPopMatrix();

@@ -301,7 +301,9 @@ void processMouse(int button, int state, int x, int y)
         }
         if(tabuleiro->processmove(pk->getObjecto(), dxx, 0, dzz))
             changesides=!changesides;*/
-        tabuleiro->tryselect(pk->getObjecto());
+        if(tabuleiro->tryselect(pk->getObjecto())==2){
+       changesides=!changesides;
+        }
         pk->resetdAc();
         
         return;
