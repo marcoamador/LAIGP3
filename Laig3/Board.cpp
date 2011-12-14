@@ -46,12 +46,12 @@ Board::Board(unsigned int l){
     this->n_vertices=l+1;
     for(int x=1;x<n_vertices;x+=2){
         for(int y=1;y<4;y++){
-            this->board[y][x]=new Peca();
+            this->board[y][x]=new Peca(1);
         }
     }
     for(int x=0;x<n_vertices;x+=2){
         for(int y=6;y<n_vertices-1;y++){
-            this->board[y][x]=new Peca();
+            this->board[y][x]=new Peca(2);
         }
     }
     

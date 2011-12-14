@@ -19,8 +19,13 @@ extern int peca;
 class Peca {
     static int id_s;
     int id;
+    int player;
 public:
     Peca();
+    Peca(int player){
+        Peca();
+        this->player=player;
+    };
     int draw(GLenum mode);
 };
 
