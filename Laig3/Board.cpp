@@ -32,21 +32,21 @@ int Board::moveto(int x, int y){
 int Board::processmove(int index,float x, float y, float z){
     int dx=0;
     int dz=0;
-    if((x>=1.3) || (x<=-1.3) ){
+    if((x>=1.0) || (x<=-1.0) ){
         if(x>0){
             dx=1;
         }else{
             dx=-1;
         }
     }
-    if((z>=1.3) || (z<=-1.3) ){
+    if((z>=1.0) || (z<=-1.0) ){
         if(z>0){
             dz=1;
         }else{
             dz=-1;
         }
     }
-    
+    cout<<"Peca id: "<<index<<" dx: "<<" dz: "<<dz<<endl;
     if(dx!=0 || dz!=0)
     for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
@@ -58,6 +58,8 @@ int Board::processmove(int index,float x, float y, float z){
                             this->board[i][j]=NULL;
                             i=this->board.size();
                             j=this->board[i].size();
+                            cout<<"Peca id: "<<index<<" moved!"<<endl;
+                            return 1;
                         }
                     }
                 }

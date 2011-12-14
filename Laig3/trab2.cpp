@@ -55,7 +55,7 @@ picking *pk;										// apontador para a classe que controla a posicao dos obje
 
 Board * tabuleiro=NULL;
 
-
+bool changesides=false;
 
 GLuint vbo;
 GLuint vinx;
@@ -89,6 +89,9 @@ void drawScene(GLenum mode)
 	
 	glTranslated(0.0,0.0,-30.0);
 	glRotated(45.0, 1.0,0.0,0.0 );
+    if(changesides){
+        glRotated(180, 0, 1.0, 0);
+    }
     glTranslatef( obj_pos[0], obj_pos[1], -obj_pos[2] ); 
 	glMultMatrixf( view_rotate );
 
@@ -271,8 +274,16 @@ void processMouse(int button, int state, int x, int y)
 	{	
         //std::cout<<"x: "<<x<<"z: "<<y<<std::endl;
         pk->setDxyz(dx, 0.0, dz);		// o objecto seleccionado esta registado em pk
-		tabuleiro->processmove(pk->getObjecto(), dx, 0, dz);
+        cout<<"zoom: "<<sqrt(pow(obj_pos[0], 2.0)+pow(obj_pos[1], 2.0)+pow(obj_pos[2], 2.0))<<endl;
+		float dxx=dx,dzz=dz;
+        if(changesides){
+            dxx=-dxx;
+            dzz=-dzz;
+        }
+        if(tabuleiro->processmove(pk->getObjecto(), dxx, 0, dzz))
+            changesides=!changesides;
         pk->resetdAc();
+        
         return;
 	}
 
