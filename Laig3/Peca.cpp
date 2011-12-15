@@ -19,8 +19,10 @@ Peca::Peca(){
 
 int Peca::draw(GLenum mode){
     glEnable(GL_COLOR_MATERIAL);
-    if (mode == GL_SELECT)
-		glLoadName (this->id);	
+    if (mode == GL_SELECT){
+        std::cout<<"loaded id: "<<id<<std::endl;
+		glLoadName (this->id);
+    }	
     if(player==2){
         glColor3d(1.0, 0, 0);
     }else{

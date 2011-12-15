@@ -167,6 +167,21 @@ int Board::draw(GLenum mode){
             if(this->board[i][j]!=NULL){
                 glPushMatrix();
                 moveto(j, i);
+                if(this->board[i][j]->getId()==select){
+                    glEnable(GL_COLOR_MATERIAL);
+                    glColor4d(0, 1, 0,0.4);
+                    glPushName(max);
+                    glBegin(GL_POLYGON);
+                    glVertex3d(-(float)size_casa/2.0, -0.49, (float)size_casa/2.0);
+                    glVertex3d(-(float)size_casa/2.0, -0.49, -(float)size_casa/2.0);
+                    glVertex3d((float)size_casa/2.0, -0.49, -(float)size_casa/2.0);
+                    glVertex3d((float)size_casa/2.0, -0.49, (float)size_casa/2.0);
+                    glEnd();  
+                    glColor3d(1, 1, 1);
+                    glDisable(GL_COLOR_MATERIAL);
+                    
+                }
+
                 this->board[i][j]->draw(mode);
                 glPopMatrix();
             }

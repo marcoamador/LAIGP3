@@ -105,10 +105,11 @@ void drawScene(GLenum mode)
         }
         
     }
-    glRotated(angler, 0, 1.0, 0);
+    
     glTranslatef( obj_pos[0], obj_pos[1], -obj_pos[2] ); 
+    
 	glMultMatrixf( view_rotate );
-
+    glRotated(angler, 0, 1.0, 0);
 	// tabuleiro
 	
 	//glCallList(mesaList);

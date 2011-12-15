@@ -23,7 +23,7 @@ class Peca {
 public:
     Peca();
     Peca(int player){
-        this->id=id_s;
+        this->id=this->id_s;
         this->id_s++;
         this->player=player;
     };
