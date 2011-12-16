@@ -13,6 +13,7 @@
 #include <iostream>
 #include "pick.h"
 #include "misc.h"
+#include "sockets.h"
 #define DIMX 500
 #define DIMY 500
 #define INITIALPOS_X 100
@@ -516,7 +517,9 @@ int main(int argc, char* argv[])
 	GLUI_Master.set_glutIdleFunc( myGlutIdle );
    
 	inicializacao();
-   
+    Socket a("127.0.0.1",60001);
+    cout<<a.sendandreceive("initialize.\n")<<endl;
+    
 	// numero de objectos para picking
 	pk = new picking(10*10*2);
 

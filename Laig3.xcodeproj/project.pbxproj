@@ -16,6 +16,7 @@
 		2C4BECDE1496C3750010A59A /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECDD1496C3750010A59A /* Board.cpp */; };
 		2C4BECE21496C50F0010A59A /* Peca.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECE11496C50F0010A59A /* Peca.cpp */; };
 		2C6EE0661497AAA40001705A /* misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EE0651497AAA40001705A /* misc.cpp */; };
+		2CEA20F0149AD76C005E4F46 /* sockets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEA20EF149AD76B005E4F46 /* sockets.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +49,8 @@
 		2C6EE0631497A5300001705A /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
 		2C6EE0651497AAA40001705A /* misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = misc.cpp; sourceTree = "<group>"; };
 		2C6EE0691497D92E0001705A /* boarditem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boarditem.h; sourceTree = "<group>"; };
+		2CEA20EF149AD76B005E4F46 /* sockets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sockets.cpp; sourceTree = "<group>"; };
+		2CEA20F2149AD782005E4F46 /* sockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sockets.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 				2C4BECE11496C50F0010A59A /* Peca.cpp */,
 				2C6EE0631497A5300001705A /* misc.h */,
 				2C6EE0651497AAA40001705A /* misc.cpp */,
+				2CEA20EF149AD76B005E4F46 /* sockets.cpp */,
+				2CEA20F2149AD782005E4F46 /* sockets.h */,
 			);
 			path = Laig3;
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 				2C4BECDE1496C3750010A59A /* Board.cpp in Sources */,
 				2C4BECE21496C50F0010A59A /* Peca.cpp in Sources */,
 				2C6EE0661497AAA40001705A /* misc.cpp in Sources */,
+				2CEA20F0149AD76C005E4F46 /* sockets.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
