@@ -19,17 +19,22 @@ Peca::Peca(){
 
 int Peca::draw(GLenum mode){
     glEnable(GL_COLOR_MATERIAL);
+    //glEnable (GL_BLEND);
+    //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     if (mode == GL_SELECT){
         std::cout<<"loaded id: "<<id<<std::endl;
 		glLoadName (this->id);
     }	
     if(player==2){
-        glColor3d(1.0, 0, 0);
+        glColor4d(1.0, 0, 0,0.6);
     }else{
-        glColor3d(0.0, 0.0, 1.0);
+        glColor4d(0.0, 0.0, 1.0,0.6);
     }
     glCallList(peca);
     glColor3d(1.0, 1.0, 1.0);
     glDisable(GL_COLOR_MATERIAL);
+   //
+    
+    glDisable(GL_BLEND);
     return 0;
 }

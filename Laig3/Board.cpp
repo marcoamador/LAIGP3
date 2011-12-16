@@ -168,6 +168,8 @@ int Board::draw(GLenum mode){
                 glPushMatrix();
                 moveto(j, i);
                 if(this->board[i][j]->getId()==select){
+                    glEnable (GL_BLEND);
+                    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                     glEnable(GL_COLOR_MATERIAL);
                     glColor4d(0, 1, 0,0.4);
                     glPushName(max);
@@ -179,6 +181,7 @@ int Board::draw(GLenum mode){
                     glEnd();  
                     glColor3d(1, 1, 1);
                     glDisable(GL_COLOR_MATERIAL);
+                    glDisable(GL_BLEND);
                     
                 }
 
