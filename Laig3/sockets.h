@@ -13,6 +13,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #endif
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -76,8 +77,10 @@ public:
         bool cont=true;
         while(cont){
             cont=!(sst>> c).eof();
-            if((c>='A' && c<='Z') || (c>='a' && c<='z')){
-                a+=c;
+            if(cont){
+                if((c>='A' && c<='Z') || (c>='a' && c<='z')){
+                    a+=c;
+                }
             }
         }
         return a;

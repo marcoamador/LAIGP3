@@ -71,6 +71,30 @@ int Board::processmove(int index,float x, float y, float z){
     return 0;
 }
 
+
+int Board::settabuleiro(vector<string> tab){
+    for(int i=0; i<this->board.size();i++){
+        for(int j=0;j<this->board[i].size();j++){
+            if(this->board[i][j]!=NULL){
+                delete this->board[i][j];
+                this->board[i][j]=NULL;
+            }
+        }
+    }
+    for(int i=0; i<tab.size();i++){
+        for(int j=0;j<tab[i].size();j++){
+            if(tab[i][j]!='x'){
+                if(tab[i][j]!='r'){
+                this->board[i][j]=new Peca(1);
+                }else{
+                this->board[i][j]=new Peca(2);
+                }
+            }
+        }
+    }
+    
+}
+
 Board::Board(unsigned int l){
     select=-1;
     pix.makeCheckBoard2();				// cria texturas
@@ -86,7 +110,7 @@ Board::Board(unsigned int l){
     glPopMatrix();
   
 	glEndList();
-    this->n_vertices=l+1;
+    this->n_vertices=l+1;/*
     for(int x=1;x<n_vertices;x+=2){
         for(int y=1;y<4;y++){
             this->board[y][x]=new Peca(1);
@@ -96,7 +120,7 @@ Board::Board(unsigned int l){
         for(int y=6;y<n_vertices-1;y++){
             this->board[y][x]=new Peca(2);
         }
-    }
+    }*/
     
 }
 

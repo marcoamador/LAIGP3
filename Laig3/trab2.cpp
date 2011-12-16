@@ -519,7 +519,7 @@ int main(int argc, char* argv[])
 	inicializacao();
     Socket a("127.0.0.1",60001);
     //cout<<a.sendandreceive("initialize.\n")<<endl;
-    a.slitarray(a.innerfunc(a.sendandreceive("initialize.\n")));
+    tabuleiro->settabuleiro(a.slitarray(a.innerfunc(a.sendandreceive("initialize.\n"))));
 	// numero de objectos para picking
 	pk = new picking(10*10*2);
 

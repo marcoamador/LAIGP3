@@ -31,6 +31,10 @@ public:
     int getId(){
         return id;
     }
+    int getPlayer(){
+        return player;
+    
+    }
 };
 
 
