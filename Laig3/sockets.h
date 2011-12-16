@@ -16,6 +16,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <stdio.h>
+#include <sstream>
+
 #ifndef Laig3_sockets_h
 #define Laig3_sockets_h
 using namespace std;
@@ -53,6 +57,53 @@ public:
         }
         //cout<<"done: "<<out<<endl;
         return out;
+    
+    }
+    string innerfunc(string s){
+        stringstream st(s);
+        
+        char line[3000];
+        st.getline(line, 3000, '(');
+        st.getline(line,3000,')');
+        string inner(line);
+        return inner;
+    }
+    
+    string cleanline(string s){
+        string a="";
+        stringstream sst(s);
+        char c=0;
+        bool cont=true;
+        while(cont){
+            cont=!(sst>> c).eof();
+            if((c>='A' && c<='Z') || (c>='a' && c<='z')){
+                a+=c;
+            }
+        }
+        return a;
+    
+    }
+    
+    vector<string> slitarray(string ss){
+        vector<string> a;
+        stringstream st(ss);
+        string inner;
+        char line[500];
+        bool cont=true;
+        while(cont){
+            cont=!(st.getline(line, 500, ']')).eof();
+        
+            string nova(line);
+            //cout<<nova<<endl;
+            string cleaned=cleanline(nova);
+            cout<<cleaned<<endl;
+            if(cleaned.size()!=0){
+                a.push_back(cleaned);
+            }
+        };
+        
+        
+        return a;
     
     }
     
