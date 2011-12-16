@@ -81,10 +81,11 @@ int Board::settabuleiro(vector<string> tab){
             }
         }
     }
+    Peca::id_s=1;
     for(int i=0; i<tab.size();i++){
         for(int j=0;j<tab[i].size();j++){
             if(tab[i][j]!='x'){
-                if(tab[i][j]!='r'){
+                if(tab[i][j]=='r'){
                 this->board[i][j]=new Peca(1);
                 }else{
                 this->board[i][j]=new Peca(2);
@@ -92,7 +93,37 @@ int Board::settabuleiro(vector<string> tab){
             }
         }
     }
-    
+    return 0;
+}
+
+string Board::stinguify(){
+    string a="[";
+    for(int i=0; i<this->board.size();i++){
+        a+='[';
+        for(int j=0;j<this->board[i].size();j++){
+            if(this->board[i][j]==NULL){
+                a+='x';
+            }else{
+                if(this->board[i][j]->getPlayer()==1){
+                    a+='r';
+                }else{
+                    a+='b';
+                }
+            }
+            if(j<this->board[i].size()-1){
+                a+=',';
+            }else{
+                a+=']';
+            }
+        }
+        if(i<this->board.size()-1){
+            a+=',';
+        }else{
+            a+=']';
+        }
+
+    }
+    return a;
 }
 
 Board::Board(unsigned int l){
@@ -125,6 +156,7 @@ Board::Board(unsigned int l){
 }
 
 int Board::tryselect(int index){
+    cout<<"Stringified: "<<this->stinguify()<<endl;
     if(select<0){ 
         cout<<"selecionada: "<<index<<endl;
         for (int i=0; i<this->board.size(); i++) {

@@ -17,10 +17,10 @@
 #define Laig3_Peca_h
 extern int peca;
 class Peca {
-    static int id_s;
-    int id;
+        int id;
     int player;
 public:
+    static int id_s;
     Peca();
     Peca(int player){
         this->id=this->id_s;

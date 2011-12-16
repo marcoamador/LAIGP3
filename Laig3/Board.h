@@ -34,6 +34,7 @@ public:
     int processmove(int index,float x, float y, float z);
     int tryselect(int i);
     int settabuleiro(vector<string> tab);
+    string stinguify();
 };
 
 #endif
