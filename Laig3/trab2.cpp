@@ -57,7 +57,7 @@ picking *pk;										// apontador para a classe que controla a posicao dos obje
 Board * tabuleiro=NULL;
 
 bool changesides=false;
-float angler=0;
+float angler=180;
 
 GLuint vbo;
 GLuint vinx;
@@ -91,7 +91,7 @@ void drawScene(GLenum mode)
 	
 	glTranslated(0.0,0.0,-30.0);
 	glRotated(45.0, 1.0,0.0,0.0 );
-    if(changesides){
+    if(!changesides){
         if(angler<180){
             angler++;
         }else{
@@ -303,7 +303,11 @@ void processMouse(int button, int state, int x, int y)
         }
         if(tabuleiro->processmove(pk->getObjecto(), dxx, 0, dzz))
             changesides=!changesides;*/
-        if(tabuleiro->tryselect(pk->getObjecto())==2){
+        int jogador=1;
+        if (changesides) {
+            jogador=2;
+        }
+        if(tabuleiro->tryselect(pk->getObjecto(),jogador)==2){
        changesides=!changesides;
         }
         pk->resetdAc();
@@ -517,9 +521,9 @@ int main(int argc, char* argv[])
 	GLUI_Master.set_glutIdleFunc( myGlutIdle );
    
 	inicializacao();
-    Socket a("127.0.0.1",60001);
+   
     //cout<<a.sendandreceive("initialize.\n")<<endl;
-    tabuleiro->settabuleiro(a.slitarray(a.innerfunc(a.sendandreceive("initialize.\n"))));
+    
 	// numero de objectos para picking
 	pk = new picking(10*10*2);
 

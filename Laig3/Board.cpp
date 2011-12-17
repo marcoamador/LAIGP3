@@ -59,6 +59,7 @@ int Board::processmove(int index,float x, float y, float z){
                             i=this->board.size();
                             j=this->board[i].size();
                             cout<<"Peca id: "<<index<<" moved!"<<endl;
+                            
                             return 1;
                         }
                     }
@@ -95,6 +96,45 @@ int Board::settabuleiro(vector<string> tab){
     }
     return 0;
 }
+//execute(Mov, Board), ok(NewBoard)):-Mov=[Jogador,Opcao,L_ini,C_ini,L_fin,C_fin]
+
+string vector2string(vector<int> num){
+    string a="[";
+    for (int i=0; i<num.size(); i++) {
+        if(num[i]>=0){
+            a+=('0'+num[i]);
+            if((i+1)<num.size()){
+                if(num[i+1]<0){
+                    //a+=',';
+                }else{
+                    a+=',';
+                }
+
+            }else{
+                if(i<num.size()-1){
+                    a+=',';
+                }else{
+                    a+=']';
+                }
+            }
+        }else{
+            if(i<num.size()-1){
+               // a+=',';
+            }else{
+                a+=']';
+            }
+
+        }
+    }
+    return a;
+}
+
+string Board::strexecutamov(int player, int opt,int xi,int yi,int xf,int yf){ 
+    int arr[]={player,opt,xi,yi,xf,yf};
+    vector<int> a(arr,arr+sizeof(arr) / sizeof(int));
+    return "execute("+vector2string(a)+","+this->stinguify()+").\n";
+    
+}
 
 string Board::stinguify(){
     string a="[";
@@ -127,7 +167,10 @@ string Board::stinguify(){
 }
 
 Board::Board(unsigned int l){
+    city=false;
+    contagem=0;
     select=-1;
+    this->sock=new Socket("127.0.0.1",60001);
     pix.makeCheckBoard2();				// cria texturas
 	pix.setTexture(200);
     this->board.erase(board.begin(), board.end());
@@ -141,7 +184,9 @@ Board::Board(unsigned int l){
     glPopMatrix();
   
 	glEndList();
-    this->n_vertices=l+1;/*
+    this->n_vertices=l+1;
+    this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive("initialize.\n"))));
+    /*
     for(int x=1;x<n_vertices;x+=2){
         for(int y=1;y<4;y++){
             this->board[y][x]=new Peca(1);
@@ -155,9 +200,10 @@ Board::Board(unsigned int l){
     
 }
 
-int Board::tryselect(int index){
-    cout<<"Stringified: "<<this->stinguify()<<endl;
-    if(select<0){ 
+int Board::tryselect(int index, int jogador){
+    string actual_board=this->stinguify();
+    cout<<"Stringified: "<<actual_board<<endl;
+    if(select<0 && city){ 
         cout<<"selecionada: "<<index<<endl;
         for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
@@ -178,9 +224,31 @@ int Board::tryselect(int index){
             for (int j=0; j<this->board[i].size(); j++) {
                 //cout<<"Max: "<<max<<endl;
                     if(max==index){
-                        this->board[i][j]=this->board[sy][sx];
-                        this->board[sy][sx]=NULL;
+                        
+                        
+                        //this->board[i][j]=this->board[sy][sx];
+                        //this->board[sy][sx]=NULL;
+                        
+                        if(!city){
+                            string msg=this->strexecutamov(jogador, 1, j+1, -1,-1, -1);
+                            cout<<"execut: "<<msg<<endl;
+                            select=-1;
+                            string received_board=sock->innerfunc(sock->sendandreceive(msg));
+                            if(received_board==actual_board){
+                                cout<<"fail!!"<<endl;
+                            }else{
+                                contagem++;
+                            }
+                            if (contagem>=2) {
+                                city=true;
+                            }
+                            this->settabuleiro(sock->slitarray(received_board));
+                        }else{
+                        string msg=this->strexecutamov(this->board[sy][sx]->getPlayer(), 1, sx+1, sy+1, j+1, i+1);
+                        cout<<"execut: "<<msg<<endl;
                         select=-1;
+                            this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive(msg))));
+                        }
                         return 2;
                         
                     }

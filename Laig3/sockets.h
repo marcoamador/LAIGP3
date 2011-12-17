@@ -51,6 +51,7 @@ public:
     }
     string sendandreceive(const string & msg){
         string out="";
+        cout<<"send: "<<msg<<endl;
         write(fd, msg.c_str(), msg.size());
         char c=0;
         while(read(fd, &c, 1)>0 && c!='\n'){

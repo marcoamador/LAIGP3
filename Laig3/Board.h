@@ -15,6 +15,7 @@
 #include "Peca.h"
 #include "misc.h"
 #include "RGBpixmap.h"
+#include "sockets.h"
 #ifndef Laig3_Board_h
 #define Laig3_Board_h
 
@@ -27,14 +28,19 @@ class Board {
     int moveto(int x, int y);
     int select;
     int sx,sy;
+    Socket * sock;
+    bool city;
+    int contagem;
 public:
     Board();
     Board(unsigned int l);
     int draw(GLenum mode);
     int processmove(int index,float x, float y, float z);
-    int tryselect(int i);
+    int tryselect(int i,int jogador);
+    int selectcity(int index, int player);
     int settabuleiro(vector<string> tab);
     string stinguify();
+    string strexecutamov(int player, int opt,int xi,int yi,int xf,int yf);
 };
 
 #endif
