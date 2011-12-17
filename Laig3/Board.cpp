@@ -89,7 +89,16 @@ int Board::settabuleiro(vector<string> tab){
                 if(tab[i][j]=='r'){
                 this->board[i][j]=new Peca(1);
                 }else{
-                this->board[i][j]=new Peca(2);
+                    if(tab[i][j]=='b')
+                        this->board[i][j]=new Peca(2);
+                    else
+                        if (tab[i][j]=='t') {
+                            this->board[i][j]=new Peca(1);
+                            this->board[i][j]->makecity();
+                        }else{
+                            this->board[i][j]=new Peca(2);
+                            this->board[i][j]->makecity();
+                        }
                 }
             }
         }
@@ -144,11 +153,19 @@ string Board::stinguify(){
             if(this->board[i][j]==NULL){
                 a+='x';
             }else{
-                if(this->board[i][j]->getPlayer()==1){
-                    a+='r';
-                }else{
-                    a+='b';
-                }
+                if(this->board[i][j]->is_city()){
+                    if(this->board[i][j]->getPlayer()==1){
+                        a+='t';
+                    }else{
+                        a+='y';
+                    }
+
+                }else
+                    if(this->board[i][j]->getPlayer()==1){
+                        a+='r';
+                    }else{
+                        a+='b';
+                    }
             }
             if(j<this->board[i].size()-1){
                 a+=',';

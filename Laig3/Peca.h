@@ -16,17 +16,23 @@
 #ifndef Laig3_Peca_h
 #define Laig3_Peca_h
 extern int peca;
+extern int city;
 class Peca {
         int id;
     int player;
+    bool city2;
 public:
     static int id_s;
     Peca();
     Peca(int player){
+        city2=false;
         this->id=this->id_s;
         this->id_s++;
         this->player=player;
     };
+    bool makecity(){
+        city2=true;
+    }
     int draw(GLenum mode);
     int getId(){
         return id;
@@ -34,6 +40,9 @@ public:
     int getPlayer(){
         return player;
     
+    }
+    int is_city(){
+        return city2;
     }
 };
 

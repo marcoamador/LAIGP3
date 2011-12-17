@@ -51,6 +51,7 @@
 		2C6EE0691497D92E0001705A /* boarditem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boarditem.h; sourceTree = "<group>"; };
 		2CEA20EF149AD76B005E4F46 /* sockets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sockets.cpp; sourceTree = "<group>"; };
 		2CEA20F2149AD782005E4F46 /* sockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sockets.h; sourceTree = "<group>"; };
+		2CEA20F9149CAD2B005E4F46 /* city.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = city.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,7 @@
 		2C4BECC71496B9760010A59A /* Laig3 */ = {
 			isa = PBXGroup;
 			children = (
+				2CEA20F9149CAD2B005E4F46 /* city.h */,
 				2C6EE0691497D92E0001705A /* boarditem.h */,
 				2C4BECD11496BA920010A59A /* pick.h */,
 				2C4BECD21496BA920010A59A /* RGBpixmap.cpp */,

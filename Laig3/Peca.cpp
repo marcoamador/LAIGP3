@@ -12,6 +12,7 @@
 int Peca::id_s=1;
 
 Peca::Peca(){
+     city=false;
     this->id=id_s;
     this->id_s++;
     player=1;
@@ -30,7 +31,10 @@ int Peca::draw(GLenum mode){
     }else{
         glColor4d(0.0, 0.0, 1.0,0.6);
     }
-    glCallList(peca);
+    if(!city2)
+        glCallList(peca);
+    else
+        glCallList(city);
     glColor3d(1.0, 1.0, 1.0);
     glDisable(GL_COLOR_MATERIAL);
    //

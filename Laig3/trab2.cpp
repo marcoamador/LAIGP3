@@ -14,6 +14,7 @@
 #include "pick.h"
 #include "misc.h"
 #include "sockets.h"
+#include "city.h"
 #define DIMX 500
 #define DIMY 500
 #define INITIALPOS_X 100
@@ -63,14 +64,14 @@ GLuint vbo;
 GLuint vinx;
 
 int peca=10;
-
+int city=11;
 #define BUFFER_OFFSET(x)((char *)NULL+(x))
 
-void DrawMesh(unsigned short * indexes, struct vertex_struct * vertexs) {
+void DrawMesh(unsigned short * indexes, struct vertex_struct * vertexs,int n_faces) {
     glPushMatrix();
 	glRotated(90, 0, 1, 0);
     glRotated(-90,1,0,0);
-    for(size_t i=0; i<FACES_COUNT*3;i=i+3){
+    for(size_t i=0; i<n_faces*3;i=i+3){
         struct vertex_struct f1=vertexs[indexes[i]];
          struct vertex_struct f2=vertexs[indexes[i+1]];
          struct vertex_struct f3=vertexs[indexes[i+2]];
@@ -472,7 +473,10 @@ void inicializacao()
     
     tabuleiro= new Board(9);
     glNewList(peca, GL_COMPILE);
-    DrawMesh(indexes, vertexs);
+    DrawMesh(indexes, vertexs,FACES_COUNT);
+    glEndList();
+    glNewList(city, GL_COMPILE);
+    DrawMesh(indexes2, vertexs2, FACES_COUNT2);
     glEndList();
 
 }
