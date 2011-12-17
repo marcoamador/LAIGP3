@@ -12,6 +12,8 @@
 #else
 #include <gl/glui.h>
 #endif
+
+#include <sstream>
 #include "Peca.h"
 #include "misc.h"
 #include "RGBpixmap.h"
@@ -31,6 +33,7 @@ class Board {
     Socket * sock;
     bool city;
     int contagem;
+    bool fim;
 public:
     Board();
     Board(unsigned int l);
@@ -41,6 +44,7 @@ public:
     int settabuleiro(vector<string> tab);
     string stinguify();
     string strexecutamov(int player, int opt,int xi,int yi,int xf,int yf);
+    string strverificafim();
 };
 
 #endif

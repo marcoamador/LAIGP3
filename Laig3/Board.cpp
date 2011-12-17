@@ -104,39 +104,52 @@ int Board::settabuleiro(vector<string> tab){
             }
         }
     }
+    string winner=sock->innerfunc(sock->sendandreceive(this->strverificafim()));
+    cout<<"winner: "<<winner<<endl;
+    if(winner!="-1"){
+        return atoi(winner.c_str());
+    }
     return 0;
 }
 //execute(Mov, Board), ok(NewBoard)):-Mov=[Jogador,Opcao,L_ini,C_ini,L_fin,C_fin]
 
 string vector2string(vector<int> num){
-    string a="[";
+    //string a="[";
+    stringstream a;
+    a<<"[";
     for (int i=0; i<num.size(); i++) {
         if(num[i]>=0){
-            a+=('0'+num[i]);
+            //a+=('0'+num[i]);
+            a<<num[i];
             if((i+1)<num.size()){
                 if(num[i+1]<0){
                     //a+=',';
                 }else{
-                    a+=',';
+                    a<<',';
                 }
 
             }else{
                 if(i<num.size()-1){
-                    a+=',';
+                    a<<',';
                 }else{
-                    a+=']';
+                    a<<']';
                 }
             }
         }else{
             if(i<num.size()-1){
                // a+=',';
             }else{
-                a+=']';
+                a<<']';
             }
 
         }
     }
-    return a;
+    return a.str();
+}
+
+string Board::strverificafim(){ 
+        return "game_end("+this->stinguify()+").\n";
+    
 }
 
 string Board::strexecutamov(int player, int opt,int xi,int yi,int xf,int yf){ 
