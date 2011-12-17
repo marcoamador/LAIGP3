@@ -27,6 +27,7 @@ int Board::moveto(int x, int y){
     }
     dx+=0.5;dy+=0.5;
     glTranslated(dx*size_casa, 1, dy*size_casa);
+    return 0;
 }
 
 int Board::processmove(int index,float x, float y, float z){

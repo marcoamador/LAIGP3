@@ -32,6 +32,7 @@ public:
     };
     bool makecity(){
         city2=true;
+        return true;
     }
     int draw(GLenum mode);
     int getId(){
