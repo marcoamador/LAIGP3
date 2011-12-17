@@ -244,7 +244,7 @@ int Board::tryselect(int index, int jogador){
                             }
                             this->settabuleiro(sock->slitarray(received_board));
                         }else{
-                        string msg=this->strexecutamov(this->board[sy][sx]->getPlayer(), 1, sx+1, sy+1, j+1, i+1);
+                        string msg=this->strexecutamov(this->board[sy][sx]->getPlayer(), 1,  sy+1, sx+1, i+1,j+1);
                         cout<<"execut: "<<msg<<endl;
                         select=-1;
                             this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive(msg))));
