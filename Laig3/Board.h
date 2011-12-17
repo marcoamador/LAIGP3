@@ -21,6 +21,19 @@
 #ifndef Laig3_Board_h
 #define Laig3_Board_h
 
+
+struct mov {
+    int inii;
+    int inij;
+    int fini;
+    int finj;
+    int peca;
+    pair<float,float> inipos;
+    pair<float,float> finpos;
+    Peca *ptr;
+    float altura;
+};
+
 using namespace std;
 
 class Board {
@@ -34,6 +47,9 @@ class Board {
     bool city;
     int contagem;
     bool fim;
+    vector<mov> movi;
+    vector<mov> differences(vector<string> &newvec);
+    pair<float,float> getxy(int x,int y);
 public:
     Board();
     Board(unsigned int l);

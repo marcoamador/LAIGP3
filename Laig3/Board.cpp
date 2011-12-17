@@ -11,6 +11,27 @@
 
 static int size_casa=3;
 
+pair<float,float> Board::getxy(int x,int y){
+    pair<float,float> a;
+    float dx;
+    float dy;
+    if((float)x>(float)this->n_vertices/2.0){
+        dx=(float)x-(float)this->n_vertices/2.0;
+    }else{
+        dx=-((float)this->n_vertices/2.0-(float)x);
+    }
+    if((float)y>(float)this->n_vertices/2.0){
+        dy=(float)y-(float)this->n_vertices/2.0;
+    }else{
+        dy=-((float)this->n_vertices/2.0-(float)y);
+    }
+    dx+=0.5;dy+=0.5;
+    a.first=dx*size_casa;
+    a.second=dy*size_casa;
+    //glTranslated(dx*size_casa, 1, dy*size_casa);
+    return a;
+}
+
 
 int Board::moveto(int x, int y){
     float dx;
@@ -75,6 +96,8 @@ int Board::processmove(int index,float x, float y, float z){
 
 
 int Board::settabuleiro(vector<string> tab){
+    this->movi=differences(tab);
+    
     for(int i=0; i<this->board.size();i++){
         for(int j=0;j<this->board[i].size();j++){
             if(this->board[i][j]!=NULL){
@@ -112,6 +135,50 @@ int Board::settabuleiro(vector<string> tab){
     return 0;
 }
 //execute(Mov, Board), ok(NewBoard)):-Mov=[Jogador,Opcao,L_ini,C_ini,L_fin,C_fin]
+
+vector<mov> Board::differences(vector<string> &newvec){
+   // vector<string> newvec=sock->slitarray(newBoard);
+    vector<pair<int, int> > entradas;
+    vector<pair<int, int> > saidas;
+    vector<mov> movement;
+    for(int i=0; i<newvec.size();i++){
+        for(int j=0;j<newvec[i].size();j++){
+            pair<int, int> a;
+            if(this->board[i][j]==NULL && newvec[i][j]!='x'){
+                a.first=i;
+                a.second=j;
+                cout<<"entrada "<<i<<" j:"<<j<<endl;
+                entradas.push_back(a);
+            }else{
+                if(this->board[i][j]!=NULL && newvec[i][j]=='x'){
+                    a.first=i;
+                    a.second=j;
+                    cout<<"saida "<<i<<" j:"<<j<<endl;
+                    saidas.push_back(a);
+                } 
+            }
+        }
+    }
+    if(entradas.size()==saidas.size()){
+        for(int i=0; i<entradas.size();i++){
+            struct mov tmp;
+            tmp.inii=saidas[i].first;
+            tmp.inij=saidas[i].second;
+            tmp.fini=entradas[i].first;
+            tmp.finj=entradas[i].second;
+            tmp.peca=this->board[tmp.inii][tmp.inij]->getPlayer();
+            tmp.inipos=getxy(tmp.inij, tmp.inii);
+            cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+            tmp.finpos=getxy(tmp.finj, tmp.fini);
+            cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+            tmp.ptr=new Peca(tmp.peca);
+            tmp.altura=1;
+            movement.push_back(tmp);
+        }
+    }
+    return movement;
+}
+
 
 string vector2string(vector<int> num){
     //string a="[";
@@ -400,6 +467,48 @@ int Board::draw(GLenum mode){
                 this->board[i][j]->draw(mode);
                 glPopMatrix();
             }
+        }
+    }
+    if(this->movi.size()!=0){
+        for (int i=0; i<movi.size(); i++) {
+            glPushMatrix();
+            float dx=movi[i].finpos.first-movi[i].inipos.first;
+            float dy=movi[i].finpos.second-movi[i].inipos.second;
+            //cout<<"dx: "<<dx<<" dy "<<dy<<endl;
+            if(dx>0.1){
+                dx=1;
+            }else{if(dx<-0.1)
+                dx=-1;
+            else
+                dx=0;}
+            if(dy>0.1){
+                dy=1;
+            }else{
+                if(dy<-0.1)
+                    dy=-1;
+                else
+                    dy=0;
+            }
+            if(dx==0 && dy==0){
+                glTranslated(movi[i].inipos.first, movi[i].altura, movi[i].inipos.second);
+                movi[i].ptr->draw(mode);
+                if(movi[i].altura>1){
+                    movi[i].altura-=0.1;
+                }else{
+                    cout<<"delete "<<movi[i].altura<<endl;
+                    delete movi[i].ptr;
+                    movi.erase(movi.begin()+i);
+                }
+            }else{
+            glTranslated(movi[i].inipos.first, movi[i].altura, movi[i].inipos.second);
+                movi[i].ptr->draw(mode);
+                if(movi[i].altura<3){
+                    movi[i].altura+=0.1;
+                }else{
+                        
+                    movi[i].inipos.first+=dx*0.1;
+                    movi[i].inipos.second+=dy*0.1;}}
+            glPopMatrix();
         }
     }
     glPopMatrix();
