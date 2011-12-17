@@ -225,7 +225,7 @@ int Board::tryselect(int index, int jogador){
         for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
             if(this->board[i][j]!=NULL){
-                if(this->board[i][j]->getId()==index){
+                if(this->board[i][j]->getId()==index && !this->board[i][j]->is_city() && this->board[i][j]->getPlayer()==jogador){
                     select=index;
                     sx=j;
                     sy=i;
@@ -236,6 +236,55 @@ int Board::tryselect(int index, int jogador){
        }
     }else{
         cout<<"casa selecionada: "<<index<<endl;
+        
+        
+        for (int i=0; i<this->board.size(); i++) {
+            for (int j=0; j<this->board[i].size(); j++) {
+                if(this->board[i][j]!=NULL){
+                    if(this->board[i][j]->getId()==index){
+                        /*select=index;
+                        sx=j;
+                        sy=i;
+                        return 1;*/
+                        
+                        if(!city){
+                            string msg=this->strexecutamov(jogador, 1, j+1, -1,-1, -1);
+                            cout<<"execut: "<<msg<<endl;
+                            select=-1;
+                            string received_board=sock->innerfunc(sock->sendandreceive(msg));
+                            if(received_board==actual_board){
+                                cout<<"fail!!"<<endl;
+                                select=-1;
+                                return 1;
+                            }else{
+                                contagem++;
+                            }
+                            if (contagem>=2) {
+                                city=true;
+                            }
+                            this->settabuleiro(sock->slitarray(received_board));
+                        }else{
+                            string msg=this->strexecutamov(this->board[sy][sx]->getPlayer(), 2,  sy+1, sx+1, i+1,j+1);
+                            cout<<"execut: "<<msg<<endl;
+                            select=-1;
+                            string received_board=sock->innerfunc(sock->sendandreceive(msg));
+                            if(received_board==actual_board){
+                                cout<<"fail!!"<<endl;
+                                select=-1;
+                                return 1;
+                            }
+                            this->settabuleiro(sock->slitarray(received_board));    
+                        }
+                        return 2;
+
+                        
+                    }
+                }
+            }
+        }
+        
+        
+        
         int max=this->n_vertices*this->n_vertices+1;
         for (int i=0; i<this->board.size(); i++) {
             for (int j=0; j<this->board[i].size(); j++) {
@@ -253,6 +302,8 @@ int Board::tryselect(int index, int jogador){
                             string received_board=sock->innerfunc(sock->sendandreceive(msg));
                             if(received_board==actual_board){
                                 cout<<"fail!!"<<endl;
+                                select=-1;
+                                return 1;
                             }else{
                                 contagem++;
                             }
@@ -264,7 +315,13 @@ int Board::tryselect(int index, int jogador){
                         string msg=this->strexecutamov(this->board[sy][sx]->getPlayer(), 1,  sy+1, sx+1, i+1,j+1);
                         cout<<"execut: "<<msg<<endl;
                         select=-1;
-                            this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive(msg))));
+                        string received_board=sock->innerfunc(sock->sendandreceive(msg));
+                            if(received_board==actual_board){
+                                cout<<"fail!!"<<endl;
+                                select=-1;
+                                return 1;
+                            }
+                         this->settabuleiro(sock->slitarray(received_board));    
                         }
                         return 2;
                         
