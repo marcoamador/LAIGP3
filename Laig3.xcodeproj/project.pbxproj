@@ -16,6 +16,10 @@
 		2C4BECDE1496C3750010A59A /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECDD1496C3750010A59A /* Board.cpp */; };
 		2C4BECE21496C50F0010A59A /* Peca.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECE11496C50F0010A59A /* Peca.cpp */; };
 		2C6EE0661497AAA40001705A /* misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EE0651497AAA40001705A /* misc.cpp */; };
+		2CCF741B149E78F000F282EB /* Scenario.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCF7419149E78F000F282EB /* Scenario.cpp */; };
+		2CCF7421149E791900F282EB /* building.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CCF741D149E78FB00F282EB /* building.bmp */; };
+		2CCF7422149E791900F282EB /* chao.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CCF741E149E78FB00F282EB /* chao.bmp */; };
+		2CCF7423149E791900F282EB /* sky.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CCF741F149E78FB00F282EB /* sky.bmp */; };
 		2CEA20F0149AD76C005E4F46 /* sockets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEA20EF149AD76B005E4F46 /* sockets.cpp */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +33,18 @@
 				2C4BECCB1496B9760010A59A /* Laig3.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		2CCF7420149E790D00F282EB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				2CCF7421149E791900F282EB /* building.bmp in CopyFiles */,
+				2CCF7422149E791900F282EB /* chao.bmp in CopyFiles */,
+				2CCF7423149E791900F282EB /* sky.bmp in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -49,6 +65,11 @@
 		2C6EE0631497A5300001705A /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
 		2C6EE0651497AAA40001705A /* misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = misc.cpp; sourceTree = "<group>"; };
 		2C6EE0691497D92E0001705A /* boarditem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boarditem.h; sourceTree = "<group>"; };
+		2CCF7419149E78F000F282EB /* Scenario.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scenario.cpp; sourceTree = "<group>"; };
+		2CCF741A149E78F000F282EB /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scenario.h; sourceTree = "<group>"; };
+		2CCF741D149E78FB00F282EB /* building.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = building.bmp; sourceTree = "<group>"; };
+		2CCF741E149E78FB00F282EB /* chao.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = chao.bmp; sourceTree = "<group>"; };
+		2CCF741F149E78FB00F282EB /* sky.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = sky.bmp; sourceTree = "<group>"; };
 		2CEA20EF149AD76B005E4F46 /* sockets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sockets.cpp; sourceTree = "<group>"; };
 		2CEA20F2149AD782005E4F46 /* sockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sockets.h; sourceTree = "<group>"; };
 		2CEA20F9149CAD2B005E4F46 /* city.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = city.h; sourceTree = "<group>"; };
@@ -90,6 +111,11 @@
 		2C4BECC71496B9760010A59A /* Laig3 */ = {
 			isa = PBXGroup;
 			children = (
+				2CCF741D149E78FB00F282EB /* building.bmp */,
+				2CCF741E149E78FB00F282EB /* chao.bmp */,
+				2CCF741F149E78FB00F282EB /* sky.bmp */,
+				2CCF7419149E78F000F282EB /* Scenario.cpp */,
+				2CCF741A149E78F000F282EB /* Scenario.h */,
 				2CEA20F9149CAD2B005E4F46 /* city.h */,
 				2C6EE0691497D92E0001705A /* boarditem.h */,
 				2C4BECD11496BA920010A59A /* pick.h */,
@@ -119,6 +145,7 @@
 				2C4BECC01496B9760010A59A /* Sources */,
 				2C4BECC11496B9760010A59A /* Frameworks */,
 				2C4BECC21496B9760010A59A /* CopyFiles */,
+				2CCF7420149E790D00F282EB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -162,6 +189,7 @@
 				2C4BECE21496C50F0010A59A /* Peca.cpp in Sources */,
 				2C6EE0661497AAA40001705A /* misc.cpp in Sources */,
 				2CEA20F0149AD76C005E4F46 /* sockets.cpp in Sources */,
+				2CCF741B149E78F000F282EB /* Scenario.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

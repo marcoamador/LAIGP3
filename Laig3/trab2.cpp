@@ -14,6 +14,7 @@
 #include "pick.h"
 #include "misc.h"
 #include "sockets.h"
+#include "Scenario.h"
 #include "city.h"
 #define DIMX 500
 #define DIMY 500
@@ -24,7 +25,7 @@
 
 
 #define mesaList 1
-
+Scenario s;
 float xy_aspect;		// aspect ratio da area de visualizacao
 int window_w=DIMX;
 int window_h=DIMY;
@@ -195,6 +196,7 @@ void drawScene(GLenum mode)
 
 	// fim teapot
 */
+    s.draw();
 	glDisable(GL_COLOR_MATERIAL);
 
 }
@@ -446,8 +448,12 @@ void inicializacao()
 	//glEnable(GL_TEXTURE_2D);				//
 	pix[0].makeCheckBoard();				// cria texturas
 	pix[0].setTexture(2001);
-	pix[1].readBMPFile("wood2.bmp");	//pix[1].readBMPFile("textura.bmp");
+    pix[1].readBMPFile("chao.bmp");	//pix[1].readBMPFile("textura.bmp");
 	pix[1].setTexture(2002);
+	pix[2].readBMPFile("building.bmp");
+	pix[2].setTexture(2003);
+	pix[3].readBMPFile("sky.bmp");
+	pix[3].setTexture(2004);
 
 	// por defeito a cor e de fundo e o preto
 	//glClearColor(1.0,1.0,1.0,1.0);
