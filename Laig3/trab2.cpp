@@ -207,7 +207,7 @@ void display(void)
  
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-	glFrustum( -xy_aspect*.04, xy_aspect*.04, -.04, .04, .1, 50.0 );
+	glFrustum( -xy_aspect*.04, xy_aspect*.04, -.04, .04, .1, 300.0 );
 
 
 	glPolygonMode(GL_FRONT, GL_FILL);
