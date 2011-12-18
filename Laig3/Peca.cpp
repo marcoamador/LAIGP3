@@ -12,6 +12,7 @@
 int Peca::id_s=1;
 
 Peca::Peca(){
+    hidden=false;
      city=false;
     this->id=id_s;
     this->id_s++;
@@ -19,6 +20,7 @@ Peca::Peca(){
 }
 
 int Peca::draw(GLenum mode){
+    if(!this->hidden){
     glEnable(GL_COLOR_MATERIAL);
     //glEnable (GL_BLEND);
     //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -39,6 +41,6 @@ int Peca::draw(GLenum mode){
     glDisable(GL_COLOR_MATERIAL);
    //
     
-    glDisable(GL_BLEND);
+        glDisable(GL_BLEND);}
     return 0;
 }

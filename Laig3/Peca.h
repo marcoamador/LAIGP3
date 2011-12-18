@@ -20,11 +20,13 @@ extern int city;
 class Peca {
         int id;
     int player;
+    bool hidden;
     bool city2;
 public:
     static int id_s;
     Peca();
     Peca(int player){
+        hidden=false;
         city2=false;
         this->id=this->id_s;
         this->id_s++;
@@ -33,6 +35,9 @@ public:
     bool makecity(){
         city2=true;
         return true;
+    }
+    void set_hidden(bool hid){
+        hidden=hid;
     }
     int draw(GLenum mode);
     int getId(){

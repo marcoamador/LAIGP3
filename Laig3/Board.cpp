@@ -471,6 +471,7 @@ int Board::draw(GLenum mode){
     }
     if(this->movi.size()!=0){
         for (int i=0; i<movi.size(); i++) {
+            this->board[movi[i].fini][movi[i].finj]->set_hidden(true);
             glPushMatrix();
             float dx=movi[i].finpos.first-movi[i].inipos.first;
             float dy=movi[i].finpos.second-movi[i].inipos.second;
@@ -498,6 +499,7 @@ int Board::draw(GLenum mode){
                     cout<<"delete "<<movi[i].altura<<endl;
                     delete movi[i].ptr;
                     movi.erase(movi.begin()+i);
+                    this->board[movi[i].fini][movi[i].finj]->set_hidden(false);
                 }
             }else{
             glTranslated(movi[i].inipos.first, movi[i].altura, movi[i].inipos.second);
