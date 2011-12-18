@@ -34,9 +34,23 @@ struct mov {
     float altura;
 };
 
+struct pospeca{
+    int i;
+    int j;
+    int player;
+    bool city;
+
+};
+
+struct jogada {
+    vector<pospeca> entrada;
+    vector<pospeca> saida;
+};
+
 using namespace std;
 
 class Board {
+    vector<struct jogada> jogadas;
     vector<vector<Peca*> > board;
     RGBpixmap pix;
     int n_vertices;
@@ -50,6 +64,8 @@ class Board {
     vector<mov> movi;
     vector<mov> differences(vector<string> &newvec);
     pair<float,float> getxy(int x,int y);
+    string stinguify(vector<vector<Peca*> >);
+    int settabuleiro(vector<string> tab,bool diff);
 public:
     Board();
     Board(unsigned int l);
@@ -58,9 +74,14 @@ public:
     int tryselect(int i,int jogador);
     int selectcity(int index, int player);
     int settabuleiro(vector<string> tab);
+    int go_back();
     string stinguify();
     string strexecutamov(int player, int opt,int xi,int yi,int xf,int yf);
     string strverificafim();
+    int exit_sock(){
+        sock->send("bye.\n");
+        return 0;
+    }
 };
 
 #endif

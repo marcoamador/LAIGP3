@@ -47,6 +47,20 @@ public:
         return player;
     
     }
+    
+    static int char2player(char c){
+        if(c=='r' || c=='t'){
+            return 1;
+        }
+        
+            return 2;
+    }
+    static bool char2city(char c){
+        if(c=='t' || c=='y'){
+            return true;
+        }
+        return false;
+    }
     int is_city(){
         return city2;
     }

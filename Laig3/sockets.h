@@ -125,6 +125,20 @@ public:
             return out;
             
         }
+        
+        
+        void send(const string & msg){
+            string out="";
+            cout<<"send: "<<msg<<endl;
+#ifndef _WIN32
+            write(fd, msg.c_str(), msg.size());
+#else
+            if (send (sock, msg.c_str(), msg.size(), 0) == SOCKET_ERROR)
+                perror("Writing on stream socket");
+#endif
+           
+                
+            }
         string innerfunc(string s){
             stringstream st(s);
             

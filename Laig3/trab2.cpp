@@ -388,10 +388,15 @@ void reshape(int w, int h)
 
 void keyboard(unsigned char key, int x, int y)
 {
+    cout<<(int)key<<endl;
    switch (key) {
       case 27:		// tecla de escape termina o programa
-         exit(0);
+           
+           exit(0);
          break;
+       case 127:
+           tabuleiro->go_back();
+           break;
    }
 }
 
@@ -481,11 +486,16 @@ void inicializacao()
 
 }
 
-
+void closeconnection(){
+    if(tabuleiro!=NULL){
+        tabuleiro->exit_sock();
+    }
+}
 
 int main(int argc, char* argv[])
 {
-   glutInit(&argc, argv);
+    atexit(closeconnection);
+    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
    glutInitWindowSize (DIMX, DIMY);
    glutInitWindowPosition (INITIALPOS_X, INITIALPOS_Y);
@@ -530,7 +540,7 @@ int main(int argc, char* argv[])
     
 	// numero de objectos para picking
 	pk = new picking(10*10*2);
-
+    
 	glutMainLoop();
 
 	delete pk;
