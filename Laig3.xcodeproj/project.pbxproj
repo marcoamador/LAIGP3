@@ -15,6 +15,7 @@
 		2C4BECDC1496BCE10010A59A /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4BECDB1496BCE10010A59A /* GLUT.framework */; };
 		2C4BECDE1496C3750010A59A /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECDD1496C3750010A59A /* Board.cpp */; };
 		2C4BECE21496C50F0010A59A /* Peca.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BECE11496C50F0010A59A /* Peca.cpp */; };
+		2C4DFF87149F037A005D4717 /* MenuS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4DFF86149F037A005D4717 /* MenuS.cpp */; };
 		2C6EE0661497AAA40001705A /* misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EE0651497AAA40001705A /* misc.cpp */; };
 		2CAD7195149ECA03006D1757 /* metal.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CAD7194149EC92E006D1757 /* metal.bmp */; };
 		2CAD7196149ECA03006D1757 /* mesa.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CAD7192149EC91C006D1757 /* mesa.bmp */; };
@@ -66,6 +67,8 @@
 		2C4BECDF1496C3840010A59A /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
 		2C4BECE01496C5040010A59A /* Peca.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Peca.h; sourceTree = "<group>"; };
 		2C4BECE11496C50F0010A59A /* Peca.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Peca.cpp; sourceTree = "<group>"; };
+		2C4DFF84149F036E005D4717 /* MenuS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuS.h; sourceTree = "<group>"; };
+		2C4DFF86149F037A005D4717 /* MenuS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuS.cpp; sourceTree = "<group>"; };
 		2C6EE0631497A5300001705A /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
 		2C6EE0651497AAA40001705A /* misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = misc.cpp; sourceTree = "<group>"; };
 		2C6EE0691497D92E0001705A /* boarditem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boarditem.h; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 		2C4BECC71496B9760010A59A /* Laig3 */ = {
 			isa = PBXGroup;
 			children = (
+				2C4DFF86149F037A005D4717 /* MenuS.cpp */,
+				2C4DFF84149F036E005D4717 /* MenuS.h */,
 				2CAD7194149EC92E006D1757 /* metal.bmp */,
 				2CAD7192149EC91C006D1757 /* mesa.bmp */,
 				2CCF741D149E78FB00F282EB /* building.bmp */,
@@ -198,6 +203,7 @@
 				2C6EE0661497AAA40001705A /* misc.cpp in Sources */,
 				2CEA20F0149AD76C005E4F46 /* sockets.cpp in Sources */,
 				2CCF741B149E78F000F282EB /* Scenario.cpp in Sources */,
+				2C4DFF87149F037A005D4717 /* MenuS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
