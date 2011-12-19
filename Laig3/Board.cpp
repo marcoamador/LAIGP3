@@ -18,13 +18,14 @@ pair<float,float> Board::getxy(int x,int y){
         float dy;
         if(x==-1)
         {
-            dx=(float)-this->n_vertices/2.0*size_casa;
-            dy=((float)this->n_vertices/2.0-abs(y))*size_casa;
-        }
-        else{
             dx=(float)this->n_vertices/2.0*size_casa;
             dy=((float)-this->n_vertices/2.0+abs(y))*size_casa;
         }
+        else{
+            dx=(float)-this->n_vertices/2.0*size_casa;
+            dy=((float)this->n_vertices/2.0-abs(y))*size_casa;
+        }
+
         //glTranslated(dx, 1, dy);
         a.first=dx;
         a.second=dy;
@@ -43,7 +44,8 @@ pair<float,float> Board::getxy(int x,int y){
     }
     dx+=0.5;dy+=0.5;
     a.first=dx*size_casa;
-        a.second=dy*size_casa;}
+        a.second=dy*size_casa;
+    }
     //glTranslated(dx*size_casa, 1, dy*size_casa);
     return a;
 }
@@ -299,6 +301,59 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
             }
         }
     }
+    if(entradas.size()>saidas.size()){
+        for(int i=0; i<entradas.size();i++){
+            if(Peca::char2player(newvec[entradas[i].first][entradas[i].second])==1)
+                for(int j=0;j<drawerp1.size();j++){
+                    if(drawerp1[j]->is_city()==Peca::char2city(newvec[entradas[i].first][entradas[i].second])){
+                        struct mov tmp;
+                        tmp.inii=-1;
+                        tmp.inij=j;
+                        tmp.fini=entradas[i].first;
+                        tmp.finj=entradas[i].second;
+                        tmp.peca=Peca::char2player(newvec[entradas[i].first][entradas[i].second]);
+                        tmp.inipos=getxy(tmp.inij, tmp.inii);
+                        cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+                        tmp.finpos=getxy(tmp.finj, tmp.fini);
+                        cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+                        tmp.ptr=new Peca(tmp.peca);
+                        if(drawerp1[j]->is_city())
+                            tmp.ptr->makecity();
+                        tmp.altura=1;
+                        movement.push_back(tmp);
+                        break;
+
+                    }
+                }
+            
+        else{
+        
+            if(Peca::char2player(newvec[entradas[i].first][entradas[i].second])==2)
+                for(int j=0;j<drawerp2.size();j++){
+                    if(drawerp2[j]->is_city()==Peca::char2city(newvec[entradas[i].first][entradas[i].second])){
+                        struct mov tmp;
+                        tmp.inii=-2;
+                        tmp.inij=j;
+                        tmp.fini=entradas[i].first;
+                        tmp.finj=entradas[i].second;
+                        tmp.peca=Peca::char2player(newvec[entradas[i].first][entradas[i].second]);
+                        tmp.inipos=getxy(tmp.inij, tmp.inii);
+                        cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+                        tmp.finpos=getxy(tmp.finj, tmp.fini);
+                        cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+                        tmp.ptr=new Peca(tmp.peca);
+                        tmp.altura=1;
+                        movement.push_back(tmp);
+                        break;
+                        
+                    }
+                }
+
+        }
+        
+        }
+    
+    }
     if(entradas.size()==saidas.size()){
         for(int i=0; i<entradas.size();i++){
             struct mov tmp;
@@ -497,6 +552,23 @@ int Board::tryselect(int index, int jogador){
     cout<<"Stringified: "<<actual_board<<endl;
     if(select<0 && city){ 
         cout<<"selecionada: "<<index<<endl;
+        for (int i=0; i<drawerp1.size(); i++) {
+            if(drawerp1[i]->getId()==index){
+                select=index;
+                sx=-1;
+                sy=i;
+                return 1;
+            }
+        }
+        for (int i=0; i<drawerp2.size(); i++) {
+            if(drawerp2[i]->getId()==index){
+                select=index;
+                sx=-2;
+                sy=i;
+                return 1;
+            }
+        }
+
         for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
             if(this->board[i][j]!=NULL){
@@ -512,7 +584,7 @@ int Board::tryselect(int index, int jogador){
     }else{
         cout<<"casa selecionada: "<<index<<endl;
         
-        
+        if(sx<0){
         for (int i=0; i<this->board.size(); i++) {
             for (int j=0; j<this->board[i].size(); j++) {
                 if(this->board[i][j]!=NULL){
@@ -556,6 +628,7 @@ int Board::tryselect(int index, int jogador){
                     }
                 }
             }
+        }
         }
         
         
