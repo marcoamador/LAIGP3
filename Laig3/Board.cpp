@@ -249,6 +249,7 @@ int Board::settabuleiro(vector<string> tab,bool diff){
         return atoi(winner.c_str());
     }
     for (int i=0; i<movi.size();i++) {
+        if(movi[i].finj>=0)
         board[movi[i].fini][movi[i].finj]->set_hidden(true);
     }
    
@@ -356,6 +357,32 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
         }
         
         }
+    
+    }
+    if(saidas.size()>entradas.size()){
+        for (int i=0; i<saidas.size(); i++) {
+            struct mov tmp;
+            tmp.inii=saidas[i].first;
+            tmp.inij=saidas[i].second;
+            if(this->board[tmp.inii][tmp.inij]->getPlayer()==2){
+                tmp.finj=-1;
+                tmp.fini=drawerp1.size();
+            }else{
+                tmp.finj=-2;
+                tmp.fini=drawerp2.size();;
+            }
+            
+            tmp.peca=this->board[tmp.inii][tmp.inij]->getPlayer();
+            tmp.inipos=getxy(tmp.inij, tmp.inii);
+            cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+            tmp.finpos=getxy(tmp.finj, tmp.fini);
+            cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+            tmp.ptr=new Peca(tmp.peca);
+            
+            tmp.altura=1;
+            movement.push_back(tmp);
+        }
+    
     
     }
     if(entradas.size()==saidas.size()){
@@ -546,6 +573,8 @@ Board::Board(unsigned int l){
     drawerp1.push_back(p);
     p=new Peca(2);
     p->makecity();
+    drawerp2.push_back(p);
+    p=new Peca(2);
     drawerp2.push_back(p);
     p=new Peca(2);
     drawerp2.push_back(p);
@@ -794,6 +823,7 @@ int Board::draw(GLenum mode){
     }
     if(this->movi.size()!=0){
         for (int i=0; i<movi.size(); i++) {
+            if(movi[i].finj>=0)
             this->board[movi[i].fini][movi[i].finj]->set_hidden(true);
             glPushMatrix();
             float dx=movi[i].finpos.first-movi[i].inipos.first;
@@ -820,8 +850,17 @@ int Board::draw(GLenum mode){
                     movi[i].altura-=0.1;
                 }else{
                     cout<<"delete "<<movi[i].altura<<endl;
-                    this->board[movi[i].fini][movi[i].finj]->set_hidden(false);
-                    delete movi[i].ptr;
+                    if(movi[i].finj>=0){
+                        this->board[movi[i].fini][movi[i].finj]->set_hidden(false);
+                        delete movi[i].ptr;
+                    }
+                    else
+                        if (movi[i].finj==-2) {
+                            this->drawerp2.push_back( movi[i].ptr);
+                        }else{
+                            this->drawerp1.push_back( movi[i].ptr);
+                        }
+                    
                     movi.erase(movi.begin()+i);
                     if(filme){
                         this->frameready=true;
