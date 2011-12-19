@@ -283,7 +283,7 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                 b.player=Peca::char2player(newvec[i][j]);
                 b.city=Peca::char2city(newvec[i][j]);
                 jog.entrada.push_back(b);
-                cout<<"entrada "<<i<<" j:"<<j<<endl;
+                cout<<"entrada char: "<<newvec[i][j]<<" i: "<<i<<" j:"<<j<<" cidade: "<<b.city<<endl;
                 entradas.push_back(a);
             }else{
                 if(this->board[i][j]!=NULL && newvec[i][j]=='x'){
@@ -296,6 +296,7 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                     b.j=j;
                     b.player=this->board[i][j]->getPlayer();
                     b.city=this->board[i][j]->is_city();
+                    cout<<" is_city "<<b.city<<endl;
                     jog.saida.push_back(b);
 
                 } 
@@ -364,6 +365,7 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
             struct mov tmp;
             tmp.inii=saidas[i].first;
             tmp.inij=saidas[i].second;
+            if(newjog){
             if(this->board[tmp.inii][tmp.inij]->getPlayer()==2){
                 tmp.finj=-1;
                 tmp.fini=drawerp1.size();
@@ -371,14 +373,26 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                 tmp.finj=-2;
                 tmp.fini=drawerp2.size();;
             }
+            }else{
+                if(this->board[tmp.inii][tmp.inij]->getPlayer()==1){
+                    tmp.finj=-1;
+                    tmp.fini=drawerp1.size();
+                }else{
+                    tmp.finj=-2;
+                    tmp.fini=drawerp2.size();;
+                }
+
+            }
             
             tmp.peca=this->board[tmp.inii][tmp.inij]->getPlayer();
+
             tmp.inipos=getxy(tmp.inij, tmp.inii);
             cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
             tmp.finpos=getxy(tmp.finj, tmp.fini);
             cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
             tmp.ptr=new Peca(tmp.peca);
-            
+            if(this->board[tmp.inii][tmp.inij]->is_city())
+                tmp.ptr->makecity();
             tmp.altura=1;
             movement.push_back(tmp);
         }
