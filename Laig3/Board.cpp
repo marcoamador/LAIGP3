@@ -16,14 +16,14 @@ pair<float,float> Board::getxy(int x,int y){
     if(x<0 || y<0){
         float dx;
         float dy;
-        if(x==1)
+        if(x==-1)
         {
-            dx=(float)this->n_vertices/2.0*size_casa;
+            dx=(float)-this->n_vertices/2.0*size_casa;
             dy=((float)this->n_vertices/2.0-abs(y))*size_casa;
         }
         else{
-            dx=(float)-this->n_vertices/2.0*size_casa;
-            dy=((float)this->n_vertices/2.0+abs(y))*size_casa;
+            dx=(float)this->n_vertices/2.0*size_casa;
+            dy=((float)-this->n_vertices/2.0+abs(y))*size_casa;
         }
         //glTranslated(dx, 1, dy);
         a.first=dx;
@@ -53,14 +53,14 @@ int Board::moveto(int x, int y){
     if(x<0 || y<0){
         float dx;
         float dy;
-        if(x==1)
+        if(x==-1)
         {
             dx=(float)this->n_vertices/2.0*size_casa;
-            dy=((float)this->n_vertices/2.0-abs(y))*size_casa;
+            dy=((float)-this->n_vertices/2.0+abs(y))*size_casa;
         }
         else{
             dx=(float)-this->n_vertices/2.0*size_casa;
-            dy=((float)this->n_vertices/2.0+abs(y))*size_casa;
+            dy=((float)this->n_vertices/2.0-abs(y))*size_casa;
         }
         glTranslated(dx, 1, dy);
     
@@ -479,7 +479,17 @@ Board::Board(unsigned int l){
             this->board[y][x]=new Peca(2);
         }
     }*/
-    
+    Peca * p=new Peca(1);
+    p->makecity();
+    drawerp1.push_back(p);
+    p=new Peca(1);
+   
+    drawerp1.push_back(p);
+    p=new Peca(2);
+    p->makecity();
+    drawerp2.push_back(p);
+    p=new Peca(2);
+    drawerp2.push_back(p);
 }
 
 int Board::tryselect(int index, int jogador){
@@ -626,6 +636,57 @@ int Board::draw(GLenum mode){
             
         }
     }
+    for(int i=0; i<this->drawerp1.size();i++){
+        glPushMatrix();
+        moveto(-1, i);
+        /*if(this->board[i][j]->getId()==select){
+            glEnable (GL_BLEND);
+            glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glEnable(GL_COLOR_MATERIAL);
+            glColor4d(0, 1, 0,0.4);
+            glPushName(max);
+            glBegin(GL_POLYGON);
+            glVertex3d(-(float)size_casa/2.0, -0.49, (float)size_casa/2.0);
+            glVertex3d(-(float)size_casa/2.0, -0.49, -(float)size_casa/2.0);
+            glVertex3d((float)size_casa/2.0, -0.49, -(float)size_casa/2.0);
+            glVertex3d((float)size_casa/2.0, -0.49, (float)size_casa/2.0);
+            glEnd();  
+            glColor3d(1, 1, 1);
+            glDisable(GL_COLOR_MATERIAL);
+            glDisable(GL_BLEND);
+            
+        }*/
+        
+        this->drawerp1[i]->draw(mode);
+        glPopMatrix();
+
+    }
+    for(int i=0; i<this->drawerp2.size();i++){
+        glPushMatrix();
+        moveto(-2, i);
+        /*if(this->board[i][j]->getId()==select){
+         glEnable (GL_BLEND);
+         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+         glEnable(GL_COLOR_MATERIAL);
+         glColor4d(0, 1, 0,0.4);
+         glPushName(max);
+         glBegin(GL_POLYGON);
+         glVertex3d(-(float)size_casa/2.0, -0.49, (float)size_casa/2.0);
+         glVertex3d(-(float)size_casa/2.0, -0.49, -(float)size_casa/2.0);
+         glVertex3d((float)size_casa/2.0, -0.49, -(float)size_casa/2.0);
+         glVertex3d((float)size_casa/2.0, -0.49, (float)size_casa/2.0);
+         glEnd();  
+         glColor3d(1, 1, 1);
+         glDisable(GL_COLOR_MATERIAL);
+         glDisable(GL_BLEND);
+         
+         }*/
+        
+        this->drawerp2[i]->draw(mode);
+        glPopMatrix();
+
+    }
+    
     for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
             if(this->board[i][j]!=NULL){

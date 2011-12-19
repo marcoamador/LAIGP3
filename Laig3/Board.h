@@ -71,6 +71,8 @@ class Board {
     string stinguify(vector<vector<Peca*> >);
     int settabuleiro(vector<string> tab,bool diff);
     int playframe();
+    vector<Peca*> drawerp1;
+    vector<Peca*> drawerp2;
 public:
     Board();
     Board(unsigned int l);
