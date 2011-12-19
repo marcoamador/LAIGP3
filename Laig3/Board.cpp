@@ -134,7 +134,7 @@ void Board::nextframe(int i){
             
         }
     }
-    return 0;
+    return;
 }
 
 int Board::processmove(int index,float x, float y, float z){
