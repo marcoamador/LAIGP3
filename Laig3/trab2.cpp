@@ -46,7 +46,7 @@ float mat2_shininess[] = {1.0};
 float mat2_specular[] = {0.4, 0.4, 0.4, 1.0}; /* specular reflection. */
 float mat2_diffuse[] = {0.3, 0.30, 0.30, 1.0}; /* diffuse reflection. */
 
-RGBpixmap pix[4];
+RGBpixmap pix[10];
 GLUquadric* glQ;
 
 
@@ -464,6 +464,10 @@ void inicializacao()
 	pix[2].setTexture(2003);
 	pix[3].readBMPFile("sky.bmp");
 	pix[3].setTexture(2004);
+	pix[4].readBMPFile("mesa.bmp");
+	pix[4].setTexture(2005);
+	pix[5].readBMPFile("metal.bmp");
+	pix[5].setTexture(2006);
 
 	// por defeito a cor e de fundo e o preto
 	//glClearColor(1.0,1.0,1.0,1.0);

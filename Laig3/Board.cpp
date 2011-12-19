@@ -13,6 +13,22 @@ static int size_casa=3;
 
 pair<float,float> Board::getxy(int x,int y){
     pair<float,float> a;
+    if(x<0 || y<0){
+        float dx;
+        float dy;
+        if(x==1)
+        {
+            dx=(float)this->n_vertices/2.0*size_casa;
+            dy=((float)this->n_vertices/2.0-abs(y))*size_casa;
+        }
+        else{
+            dx=(float)-this->n_vertices/2.0*size_casa;
+            dy=((float)this->n_vertices/2.0+abs(y))*size_casa;
+        }
+        //glTranslated(dx, 1, dy);
+        a.first=dx;
+        a.second=dy;
+    }else{
     float dx;
     float dy;
     if((float)x>(float)this->n_vertices/2.0){
@@ -27,13 +43,28 @@ pair<float,float> Board::getxy(int x,int y){
     }
     dx+=0.5;dy+=0.5;
     a.first=dx*size_casa;
-    a.second=dy*size_casa;
+        a.second=dy*size_casa;}
     //glTranslated(dx*size_casa, 1, dy*size_casa);
     return a;
 }
 
 
 int Board::moveto(int x, int y){
+    if(x<0 || y<0){
+        float dx;
+        float dy;
+        if(x==1)
+        {
+            dx=(float)this->n_vertices/2.0*size_casa;
+            dy=((float)this->n_vertices/2.0-abs(y))*size_casa;
+        }
+        else{
+            dx=(float)-this->n_vertices/2.0*size_casa;
+            dy=((float)this->n_vertices/2.0+abs(y))*size_casa;
+        }
+        glTranslated(dx, 1, dy);
+    
+    }else{
     float dx;
     float dy;
     if((float)x>(float)this->n_vertices/2.0){
@@ -47,7 +78,8 @@ int Board::moveto(int x, int y){
         dy=-((float)this->n_vertices/2.0-(float)y);
     }
     dx+=0.5;dy+=0.5;
-    glTranslated(dx*size_casa, 1, dy*size_casa);
+        glTranslated(dx*size_casa, 1, dy*size_casa);
+    }
     return 0;
 }
 
