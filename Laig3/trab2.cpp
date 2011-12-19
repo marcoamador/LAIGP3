@@ -218,7 +218,11 @@ void display(void)
 	glLoadIdentity();
 	glFrustum( -xy_aspect*.04, xy_aspect*.04, -.04, .04, .1, 300.0 );
 
-
+    gluQuadricOrientation( glQ, GLU_OUTSIDE);
+    gluQuadricDrawStyle(glQ, GLU_FILL);
+    gluQuadricNormals(glQ, GLU_SMOOTH);
+    gluQuadricOrientation(glQ, GLU_OUTSIDE);
+    gluQuadricTexture(glQ, GL_FALSE);
 	glPolygonMode(GL_FRONT, GL_FILL);
 
 	
