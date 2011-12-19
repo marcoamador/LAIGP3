@@ -588,7 +588,7 @@ int Board::tryselect(int index, int jogador){
     }else{
         cout<<"casa selecionada: "<<index<<endl;
         
-        if(sx<0){
+        if(sx>0){
         for (int i=0; i<this->board.size(); i++) {
             for (int j=0; j<this->board[i].size(); j++) {
                 if(this->board[i][j]!=NULL){
