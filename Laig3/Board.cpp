@@ -307,8 +307,8 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                 for(int j=0;j<drawerp1.size();j++){
                     if(drawerp1[j]->is_city()==Peca::char2city(newvec[entradas[i].first][entradas[i].second])){
                         struct mov tmp;
-                        tmp.inii=-1;
-                        tmp.inij=j;
+                        tmp.inii=j;
+                        tmp.inij=-1;
                         tmp.fini=entradas[i].first;
                         tmp.finj=entradas[i].second;
                         tmp.peca=Peca::char2player(newvec[entradas[i].first][entradas[i].second]);
@@ -321,6 +321,7 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                             tmp.ptr->makecity();
                         tmp.altura=1;
                         movement.push_back(tmp);
+                        drawerp1.erase(drawerp1.begin()+j);
                         break;
 
                     }
@@ -332,8 +333,8 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                 for(int j=0;j<drawerp2.size();j++){
                     if(drawerp2[j]->is_city()==Peca::char2city(newvec[entradas[i].first][entradas[i].second])){
                         struct mov tmp;
-                        tmp.inii=-2;
-                        tmp.inij=j;
+                        tmp.inii=j;
+                        tmp.inij=-2;
                         tmp.fini=entradas[i].first;
                         tmp.finj=entradas[i].second;
                         tmp.peca=Peca::char2player(newvec[entradas[i].first][entradas[i].second]);
@@ -342,8 +343,11 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                         tmp.finpos=getxy(tmp.finj, tmp.fini);
                         cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
                         tmp.ptr=new Peca(tmp.peca);
+                        if(drawerp2[j]->is_city())
+                            tmp.ptr->makecity();
                         tmp.altura=1;
                         movement.push_back(tmp);
+                        drawerp2.erase(drawerp2.begin()+j);
                         break;
                         
                     }
