@@ -127,7 +127,7 @@ public:
         }
         
         
-        void send(const string & msg){
+        void send2(const string & msg){
             string out="";
             cout<<"send: "<<msg<<endl;
 #ifndef _WIN32

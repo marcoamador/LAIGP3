@@ -61,11 +61,16 @@ class Board {
     bool city;
     int contagem;
     bool fim;
+    int frame;
+    bool filme;
+    bool frameready;
     vector<mov> movi;
+    vector<mov> differences(vector<string> &newvec,bool);
     vector<mov> differences(vector<string> &newvec);
     pair<float,float> getxy(int x,int y);
     string stinguify(vector<vector<Peca*> >);
     int settabuleiro(vector<string> tab,bool diff);
+    int playframe();
 public:
     Board();
     Board(unsigned int l);
@@ -78,10 +83,13 @@ public:
     string stinguify();
     string strexecutamov(int player, int opt,int xi,int yi,int xf,int yf);
     string strverificafim();
+    int play();
+    void nextframe( int i);
     int exit_sock(){
-        sock->send("bye.\n");
+        sock->sendandreceive("bye.\n");
         return 0;
     }
+    
 };
 
 #endif

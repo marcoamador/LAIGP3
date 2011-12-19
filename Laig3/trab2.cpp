@@ -46,7 +46,7 @@ float mat2_shininess[] = {1.0};
 float mat2_specular[] = {0.4, 0.4, 0.4, 1.0}; /* specular reflection. */
 float mat2_diffuse[] = {0.3, 0.30, 0.30, 1.0}; /* diffuse reflection. */
 
-RGBpixmap pix[2];
+RGBpixmap pix[4];
 GLUquadric* glQ;
 
 
@@ -67,6 +67,10 @@ GLuint vinx;
 int peca=10;
 int city=11;
 #define BUFFER_OFFSET(x)((char *)NULL+(x))
+
+void changeframe(int i){
+    tabuleiro->nextframe(i);
+}
 
 void DrawMesh(unsigned short * indexes, struct vertex_struct * vertexs,int n_faces) {
     glPushMatrix();
@@ -120,7 +124,10 @@ void drawScene(GLenum mode)
         mode=GL_RENDER;
     
     }
-    tabuleiro->draw(mode);
+
+    if(tabuleiro->draw(mode)==3){
+        glutTimerFunc(1500, changeframe, 1);
+    }
     //glTranslated(0, 1, 0);
     //glCallList(peca);
 	/*// esfera 1
@@ -398,6 +405,9 @@ void keyboard(unsigned char key, int x, int y)
          break;
        case 127:
            tabuleiro->go_back();
+           break;
+       case 13:
+           tabuleiro->play();
            break;
    }
 }

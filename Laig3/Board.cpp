@@ -51,6 +51,58 @@ int Board::moveto(int x, int y){
     return 0;
 }
 
+int Board::play(){
+    this->frame=1;
+    this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive("initialize.\n"))),false);
+    this->filme=true;
+    this->frameready=true;
+    return 0;
+}
+
+int Board::playframe(){
+    if(this->frame<this->jogadas.size() ){
+        this->frameready=false;
+        vector<vector<Peca*> > tab=this->board;
+        struct jogada j=this->jogadas[this->frame];
+        //this->jogadas.erase(this->jogadas.end()-1);
+        for (int i=0; i<j.entrada.size(); i++) {
+            /*if(tab[j.entrada[i].i][j.entrada[i].j]!=NULL){
+             delete tab[j.entrada[i].i][j.entrada[i].j];
+             }*/
+            Peca * p=new Peca(j.entrada[i].player);
+            if(j.entrada[i].city)
+                p->makecity();
+            tab[j.entrada[i].i][j.entrada[i].j]=p;
+            
+        }
+        for (int i=0; i<j.saida.size(); i++) {
+            /* if(this->board[j.saida[i].i][j.saida[i].j]!=NULL){
+             delete this->board[j.saida[i].i][j.saida[i].j];
+             }*/
+            tab[j.saida[i].i][j.saida[i].j]=NULL;
+        }
+        this->settabuleiro(sock->slitarray(this->stinguify(tab)), false);
+    }
+    return 0;
+}
+
+
+void Board::nextframe(int i){
+    if(filme){
+        if(this->frameready && this->frame<this->jogadas.size()){
+            
+            this->playframe();
+            this->frame++;
+        }else{
+            if(this->frameready){
+            this->filme=false;
+                this->frame=1;}
+            
+        }
+    }
+    return 0;
+}
+
 int Board::processmove(int index,float x, float y, float z){
     int dx=0;
     int dz=0;
@@ -94,39 +146,39 @@ int Board::processmove(int index,float x, float y, float z){
     return 0;
 }
 int Board::settabuleiro(vector<string> tab){
-    this->settabuleiro( tab,true);
+    return this->settabuleiro( tab,true);
 }
 
 int Board::go_back(){
     if(jogadas.size()>1){
-    //vector<vector<Peca*> > tab=this->board;
+    vector<vector<Peca*> > tab=this->board;
     struct jogada j=*(this->jogadas.end()-1);
     this->jogadas.erase(this->jogadas.end()-1);
     for (int i=0; i<j.entrada.size(); i++) {
-        if(this->board[j.entrada[i].i][j.entrada[i].j]!=NULL){
-            delete this->board[j.entrada[i].i][j.entrada[i].j];
-        }
-        this->board[j.entrada[i].i][j.entrada[i].j]=NULL;
+        /*if(tab[j.entrada[i].i][j.entrada[i].j]!=NULL){
+            delete tab[j.entrada[i].i][j.entrada[i].j];
+        }*/
+        tab[j.entrada[i].i][j.entrada[i].j]=NULL;
     }
     for (int i=0; i<j.saida.size(); i++) {
-        if(this->board[j.saida[i].i][j.saida[i].j]!=NULL){
+       /* if(this->board[j.saida[i].i][j.saida[i].j]!=NULL){
             delete this->board[j.saida[i].i][j.saida[i].j];
-        }
+        }*/
         Peca * p=new Peca(j.saida[i].player);
         if(j.saida[i].city)
             p->makecity();
-        this->board[j.saida[i].i][j.saida[i].j]=p;
+        tab[j.saida[i].i][j.saida[i].j]=p;
     }
-        this->settabuleiro(sock->slitarray(this->stinguify()), false);
+        this->settabuleiro(sock->slitarray(this->stinguify(tab)), false);
     }
     return 0;
 }
 
 int Board::settabuleiro(vector<string> tab,bool diff){
-    if (diff) {
+
  
-        this->movi=differences(tab);
-    }
+        this->movi=differences(tab,diff);
+   
     for(int i=0; i<this->board.size();i++){
         for(int j=0;j<this->board[i].size();j++){
             if(this->board[i][j]!=NULL){
@@ -136,21 +188,22 @@ int Board::settabuleiro(vector<string> tab,bool diff){
         }
     }
     Peca::id_s=1;
+    //vector<vector<Peca *> > tabt=board;
     for(int i=0; i<tab.size();i++){
         for(int j=0;j<tab[i].size();j++){
             if(tab[i][j]!='x'){
                 if(tab[i][j]=='r'){
-                this->board[i][j]=new Peca(1);
+                board[i][j]=new Peca(1);
                 }else{
                     if(tab[i][j]=='b')
-                        this->board[i][j]=new Peca(2);
+                        board[i][j]=new Peca(2);
                     else
                         if (tab[i][j]=='t') {
-                            this->board[i][j]=new Peca(1);
-                            this->board[i][j]->makecity();
+                            board[i][j]=new Peca(1);
+                            board[i][j]->makecity();
                         }else{
-                            this->board[i][j]=new Peca(2);
-                            this->board[i][j]->makecity();
+                            board[i][j]=new Peca(2);
+                            board[i][j]->makecity();
                         }
                 }
             }
@@ -161,11 +214,23 @@ int Board::settabuleiro(vector<string> tab,bool diff){
     if(winner!="-1"){
         return atoi(winner.c_str());
     }
+    for (int i=0; i<movi.size();i++) {
+        board[movi[i].fini][movi[i].finj]->set_hidden(true);
+    }
+   
+    
     return 0;
 }
 //execute(Mov, Board), ok(NewBoard)):-Mov=[Jogador,Opcao,L_ini,C_ini,L_fin,C_fin]
 
 vector<mov> Board::differences(vector<string> &newvec){
+    return differences(newvec,true);
+}
+
+
+
+
+vector<mov> Board::differences(vector<string> &newvec,bool newjog){
    // vector<string> newvec=sock->slitarray(newBoard);
     struct  jogada jog;
     vector<pair<int, int> > entradas;
@@ -181,7 +246,7 @@ vector<mov> Board::differences(vector<string> &newvec){
                 b.i=i;
                 b.j=j;
                 b.player=Peca::char2player(newvec[i][j]);
-                b.city=Peca::char2player(newvec[i][j]);
+                b.city=Peca::char2city(newvec[i][j]);
                 jog.entrada.push_back(b);
                 cout<<"entrada "<<i<<" j:"<<j<<endl;
                 entradas.push_back(a);
@@ -219,6 +284,7 @@ vector<mov> Board::differences(vector<string> &newvec){
             movement.push_back(tmp);
         }
     }
+    if(newjog)
     this->jogadas.push_back(jog);
     return movement;
 }
@@ -349,7 +415,9 @@ string Board::stinguify(){
 }
 
 Board::Board(unsigned int l){
-    city=false;
+    city=false;    
+    filme=false;
+    frameready=false;
     contagem=0;
     select=-1;
     this->sock=new Socket("127.0.0.1",60001);
@@ -500,6 +568,7 @@ int Board::tryselect(int index, int jogador){
     return 0;
 }
 
+
 int Board::draw(GLenum mode){
     if (mode == GL_SELECT)
 		glLoadName (0);	
@@ -581,9 +650,14 @@ int Board::draw(GLenum mode){
                     movi[i].altura-=0.1;
                 }else{
                     cout<<"delete "<<movi[i].altura<<endl;
+                    this->board[movi[i].fini][movi[i].finj]->set_hidden(false);
                     delete movi[i].ptr;
                     movi.erase(movi.begin()+i);
-                    this->board[movi[i].fini][movi[i].finj]->set_hidden(false);
+                    if(filme){
+                        this->frameready=true;
+                        //glutTimerFunc	(	500 , this->nextframe, 0);
+                    }
+                    
                 }
             }else{
             glTranslated(movi[i].inipos.first, movi[i].altura, movi[i].inipos.second);
@@ -596,8 +670,14 @@ int Board::draw(GLenum mode){
                     movi[i].inipos.second+=dy*0.1;}}
             glPopMatrix();
         }
+    }else{
+        this->frameready=true;
     }
     glPopMatrix();
+    if(this->filme && this->frameready){
+        return 3;
+    
+    }
     return 0;
 
 };

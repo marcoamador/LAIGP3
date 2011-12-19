@@ -19,6 +19,8 @@ Peca::Peca(){
     player=1;
 }
 
+
+
 int Peca::draw(GLenum mode){
     if(!this->hidden){
     glEnable(GL_COLOR_MATERIAL);
