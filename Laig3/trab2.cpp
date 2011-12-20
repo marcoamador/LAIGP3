@@ -16,6 +16,8 @@
 #include "sockets.h"
 #include "Scenario.h"
 #include "city.h"
+#include "TimerS.h"
+#include "MenuS.h"
 #define DIMX 500
 #define DIMY 500
 #define INITIALPOS_X 100
@@ -60,6 +62,9 @@ Board * tabuleiro=NULL;
 
 bool changesides=false;
 float angler=180;
+TimerS game_timer;
+MenuS main_menu;
+
 
 GLuint vbo;
 GLuint vinx;
@@ -91,6 +96,46 @@ void DrawMesh(unsigned short * indexes, struct vertex_struct * vertexs,int n_fac
     }
     glPopMatrix();
 }
+
+
+void drawTimer(){
+	glPushMatrix();
+	std::string text=game_timer.getTime();
+    
+    glDisable(GL_DEPTH_TEST);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0,window_w,0,window_h,-1.0,1.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    
+    glDisable(GL_LIGHTING);
+    glEnable(GL_COLOR_MATERIAL);
+    
+    
+    glBegin(GL_POLYGON);
+    glColor4f(0.0,0.0,1.0,0);
+    glVertex2d(0,window_h);
+    glVertex2d(0,window_h-40);
+    glVertex2d(70,window_h-40);
+    glVertex2d(70,window_h);
+    glEnd();
+    
+    glPushMatrix();
+    glColor3f(50, 50,50);           
+    glRasterPos3f(10, window_h-30, 0);
+    
+    for (unsigned i = 0; i < text.size(); ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
+    }
+    glPopMatrix();
+    glDisable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+    glPopMatrix();
+    
+}
+
 
 void drawScene(GLenum mode)
 {
@@ -245,7 +290,8 @@ void display(void)
 
 	
 	drawScene(GL_RENDER);
-
+    main_menu.draw();
+	drawTimer();
 	// swapping the buffers causes the rendering above to be shown
 	glutSwapBuffers();
    
@@ -460,6 +506,11 @@ void myGlutIdle( void )
 //  glui->sync_live();
 
 }
+void tick_timer(int d){
+    game_timer.increment();
+    glutTimerFunc(1000, tick_timer, 0);
+}
+
 
 void inicializacao()
 {
@@ -525,6 +576,15 @@ void inicializacao()
     glNewList(city, GL_COMPILE);
     DrawMesh(indexes2, vertexs2, FACES_COUNT2);
     glEndList();
+    glutTimerFunc(1000, tick_timer, 0);
+	main_menu.setTexture(2004);
+	main_menu.setDimensions(window_w, window_h);
+	vector<string> menu_strings;
+	menu_strings.push_back("Cannon - The Emperors Game");
+	menu_strings.push_back("Jogar Humano-Humano");
+	menu_strings.push_back("Jogar Humano-CPU");
+	menu_strings.push_back("Jogar CPU-CPU");
+	main_menu.setMenuStrings(menu_strings);
 
 }
 
