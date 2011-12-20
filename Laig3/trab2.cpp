@@ -84,6 +84,7 @@ GLuint vinx;
 int ai1;
 int ai2;
 int nfree;
+int nfree2;
 int peca=10;
 int city=11;
 #define BUFFER_OFFSET(x)((char *)NULL+(x))
@@ -157,9 +158,12 @@ void drawScene(GLenum mode)
     
 	
 
-    if(nfree){
+    if(nfree && !nfree2){
         gluLookAt(0, 40, 0, 0, 0, 0, 0, 0, -1);
-    }else{
+    }else if(nfree2 && !nfree){
+        gluLookAt(40, 20, 0, 0, 0, 0, 0, 1, 0);
+	}
+	else{
         glTranslated(0.0,0.0,-30.0);
         glRotated(45.0, 1.0,0.0,0.0 );
         
@@ -761,18 +765,20 @@ int main(int argc, char* argv[])
 	glui2->add_translation( "Zoom", GLUI_TRANSLATION_Z, &obj_pos[2] );
 	trans_z->set_speed( .02 );
     glui2->add_column( false );
-    play_b=glui2->add_button("Play",-1,playvideo);
-    glui2->add_button("Back",-1,goback);
-    glui2->add_checkbox("AI Player1",&ai1,-1,setai1);
-    glui2->add_checkbox("AI Player2",&ai2,-1,setai2);
+	glui2->add_button("New Game",-1,new_game);
+    play_b=glui2->add_button("Replay Game",-1,playvideo);
+    glui2->add_button("Undo",-1,goback);
+	glui2->add_column(false);
+    glui2->add_checkbox("P1 is CPU",&ai1,-1,setai1);
+    glui2->add_checkbox("P2 is CPU",&ai2,-1,setai2);
+	glui2->add_separator();
     glui2->add_checkbox("Top view",&nfree,-1,setai2);
+	glui2->add_checkbox("Side view",&nfree2,-1,setai2);
     glui2->add_column(false);
-    glui2->add_button("New Game",-1,new_game);
-	glui2->add_column( false );
-	GLUI_Listbox *listbox = glui2->add_listbox("Cenarios",&f,3,handleTexPack);
-	listbox->add_item(1, "Tema 1");
-	listbox->add_item(2, "Tema 2");
-	listbox->add_item(3, "Tema 3");
+	GLUI_Listbox *listbox = glui2->add_listbox("Scenarios",&f,3,handleTexPack);
+	listbox->add_item(1, "Theme 1");
+	listbox->add_item(2, "Theme 2");
+	listbox->add_item(3, "Theme 3");
     //glui2->add_button("Player 1 ai",-1,tryai1);
 	//glui2->add_button("Player 2 ai",-1,tryai);
 	/* We register the idle callback with GLUI, not with GLUT */

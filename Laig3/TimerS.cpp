@@ -8,7 +8,7 @@ TimerS::TimerS(void)
 }
 
 void TimerS::increment(){
-    if(seconds++ >= 60){
+    if(++seconds >= 60){
         seconds=0;
         minutes++;
 	}
