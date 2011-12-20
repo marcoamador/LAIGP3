@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "Board.h"
+#include <math.h>
 
 static int size_casa=3;
 
@@ -84,6 +85,64 @@ int Board::moveto(int x, int y){
     }
     return 0;
 }
+
+
+void Board::ai_play(int player, int level){
+    if(player1){
+        if(player!=1){
+            return;
+        }
+    }else{
+        if(player!=2){
+            return;
+        }
+    }
+    string board=this->stinguify();
+    if(filme){
+        return;
+    }
+    for(int i=0; i<drawerp1.size() && city;i++){
+        if(drawerp1[i]->is_city())
+            city=false;
+    }
+    for(int i=0; i<drawerp2.size() && city;i++){
+        if(drawerp2[i]->is_city())
+            city=false;
+    }
+    if(!city){
+        int pos=rand()%this->board.size();
+        string msg=this->strexecutamov(player, 1, pos, -1,-1, -1);
+        cout<<"execut: "<<msg<<endl;
+        select=-1;
+        string received_board=sock->innerfunc(sock->sendandreceive(msg));
+        if(received_board==board){
+            cout<<"fail!!"<<endl;
+            //select=-1;
+            return ;
+        }else{
+            contagem++;
+        }
+        if (contagem>=2) {
+            city=true;
+        }
+        this->settabuleiro(sock->slitarray(received_board));
+        player1=!player1;
+        return;
+        
+    }
+    stringstream ss;
+  
+    ss<<"ai("<<'['<<level<<','<<player<<']'<<','<<board<<").\n";
+     string received_board=sock->innerfunc(sock->sendandreceive(ss.str()));
+    if (received_board==board) {
+        cout<<"No movement"<<endl;
+        return;
+    }
+    this->settabuleiro(sock->slitarray(received_board));
+    player1=!player1;
+    
+}
+
 
 int Board::play(){
     this->frame=0;
@@ -625,6 +684,7 @@ int Board::tryselect(int index, int jogador1){
     if(filme){
         return 0;
     }
+    city=true;
     for(int i=0; i<drawerp1.size() && city;i++){
         if(drawerp1[i]->is_city())
             city=false;

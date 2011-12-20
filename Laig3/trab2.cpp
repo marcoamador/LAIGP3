@@ -537,6 +537,13 @@ void goback(int dummy){
 
 }
 
+void tryai(int dummy){
+    tabuleiro->ai_play(2, 2);
+}
+
+void tryai1(int dummy){
+    tabuleiro->ai_play(1, 2);
+}
 int main(int argc, char* argv[])
 {
     atexit(closeconnection);
@@ -577,7 +584,8 @@ int main(int argc, char* argv[])
     glui2->add_column( false );
     play_b=glui2->add_button("Play",-1,playvideo);
     glui2->add_button("Back",-1,goback);
-	
+    glui2->add_button("Player 1 ai",-1,tryai1);
+	glui2->add_button("Player 2 ai",-1,tryai);
 	/* We register the idle callback with GLUI, not with GLUT */
 	GLUI_Master.set_glutIdleFunc( myGlutIdle );
    

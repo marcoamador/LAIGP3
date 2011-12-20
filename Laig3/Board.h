@@ -86,6 +86,7 @@ public:
     string stinguify();
     string strexecutamov(int player, int opt,int xi,int yi,int xf,int yf);
     string strverificafim();
+    void ai_play(int player, int level);
     int play();
     void nextframe( int i);
     bool is_playing(){
