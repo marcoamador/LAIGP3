@@ -79,7 +79,9 @@ class Board {
     int winner;
 public:
     Board();
+    ~Board();
     Board(unsigned int l);
+     Board(unsigned int l, Socket *s);
     int draw(GLenum mode);
     int processmove(int index,float x, float y, float z);
     int tryselect(int i,int jogador);
@@ -122,6 +124,12 @@ public:
     }
     int getWinner(){
         return winner;
+    }
+    Socket * getsocket(){
+        return sock;
+    }
+    void  setsocket(Socket *s){
+        sock=s;
     }
     
 };

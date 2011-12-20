@@ -27,7 +27,7 @@ int Peca::draw(GLenum mode){
     //glEnable (GL_BLEND);
     //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     if (mode == GL_SELECT){
-        std::cout<<"loaded id: "<<id<<std::endl;
+      //  std::cout<<"loaded id: "<<id<<std::endl;
 		glLoadName (this->id);
     }	
     if(player==2){

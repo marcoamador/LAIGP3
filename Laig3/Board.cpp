@@ -112,7 +112,7 @@ void Board::ai_play(int player, int level){
     if(!city){
         int pos=rand()%this->board.size();
         string msg=this->strexecutamov(player, 1, pos, -1,-1, -1);
-        cout<<"execut: "<<msg<<endl;
+        //cout<<"execut: "<<msg<<endl;
         select=-1;
         string received_board=sock->innerfunc(sock->sendandreceive(msg));
         if(received_board==board){
@@ -135,7 +135,7 @@ void Board::ai_play(int player, int level){
     ss<<"ai("<<'['<<level<<','<<player<<']'<<','<<board<<").\n";
      string received_board=sock->innerfunc(sock->sendandreceive(ss.str()));
     if (received_board==board) {
-        cout<<"No movement"<<endl;
+        //cout<<"No movement"<<endl;
         return;
     }
     this->settabuleiro(sock->slitarray(received_board));
@@ -232,7 +232,7 @@ int Board::processmove(int index,float x, float y, float z){
             dz=-1;
         }
     }
-    cout<<"Peca id: "<<index<<" dx: "<<" dz: "<<dz<<endl;
+   // cout<<"Peca id: "<<index<<" dx: "<<" dz: "<<dz<<endl;
     if(dx!=0 || dz!=0)
     for (int i=0; i<this->board.size(); i++) {
         for (int j=0; j<this->board[i].size(); j++) {
@@ -244,7 +244,7 @@ int Board::processmove(int index,float x, float y, float z){
                             this->board[i][j]=NULL;
                             i=this->board.size();
                             j=this->board[i].size();
-                            cout<<"Peca id: "<<index<<" moved!"<<endl;
+                            //cout<<"Peca id: "<<index<<" moved!"<<endl;
                             
                             return 1;
                         }
@@ -368,20 +368,20 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                 b.player=Peca::char2player(newvec[i][j]);
                 b.city=Peca::char2city(newvec[i][j]);
                 jog.entrada.push_back(b);
-                cout<<"entrada char: "<<newvec[i][j]<<" i: "<<i<<" j:"<<j<<" cidade: "<<b.city<<endl;
+              //  cout<<"entrada char: "<<newvec[i][j]<<" i: "<<i<<" j:"<<j<<" cidade: "<<b.city<<endl;
                 entradas.push_back(a);
             }else{
                 if(this->board[i][j]!=NULL && newvec[i][j]=='x'){
                     a.first=i;
                     a.second=j;
-                    cout<<"saida "<<i<<" j:"<<j<<endl;
+                  //  cout<<"saida "<<i<<" j:"<<j<<endl;
                     saidas.push_back(a);
                     struct pospeca b;
                     b.i=i;
                     b.j=j;
                     b.player=this->board[i][j]->getPlayer();
                     b.city=this->board[i][j]->is_city();
-                    cout<<" is_city "<<b.city<<endl;
+                   // cout<<" is_city "<<b.city<<endl;
                     jog.saida.push_back(b);
 
                 } 
@@ -402,9 +402,9 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                         tmp.finj=entradas[i].second;
                         tmp.peca=Peca::char2player(newvec[entradas[i].first][entradas[i].second]);
                         tmp.inipos=getxy(tmp.inij, tmp.inii);
-                        cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+                        //cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
                         tmp.finpos=getxy(tmp.finj, tmp.fini);
-                        cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+                       // cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
                         tmp.ptr=new Peca(tmp.peca);
                         if(drawerp1[j]->is_city())
                             tmp.ptr->makecity();
@@ -428,9 +428,9 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
                         tmp.finj=entradas[i].second;
                         tmp.peca=Peca::char2player(newvec[entradas[i].first][entradas[i].second]);
                         tmp.inipos=getxy(tmp.inij, tmp.inii);
-                        cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+                       // cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
                         tmp.finpos=getxy(tmp.finj, tmp.fini);
-                        cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+                      //  cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
                         tmp.ptr=new Peca(tmp.peca);
                         if(drawerp2[j]->is_city())
                             tmp.ptr->makecity();
@@ -474,9 +474,9 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
             tmp.peca=this->board[tmp.inii][tmp.inij]->getPlayer();
 
             tmp.inipos=getxy(tmp.inij, tmp.inii);
-            cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+         //   cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
             tmp.finpos=getxy(tmp.finj, tmp.fini);
-            cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+           // cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
             tmp.ptr=new Peca(tmp.peca);
             if(this->board[tmp.inii][tmp.inij]->is_city())
                 tmp.ptr->makecity();
@@ -495,9 +495,9 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
             tmp.finj=entradas[i].second;
             tmp.peca=this->board[tmp.inii][tmp.inij]->getPlayer();
             tmp.inipos=getxy(tmp.inij, tmp.inii);
-            cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
+           // cout<<"ini: x: "<<tmp.inipos.first<<" y: "<<tmp.inipos.second<<endl;
             tmp.finpos=getxy(tmp.finj, tmp.fini);
-            cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
+            //cout<<"fin: x: "<<tmp.finpos.first<<" y: "<<tmp.finpos.second<<endl;
             tmp.ptr=new Peca(tmp.peca);
             tmp.altura=1;
             movement.push_back(tmp);
@@ -686,6 +686,60 @@ Board::Board(unsigned int l){
     drawerp2.push_back(p);*/
 }
 
+Board::Board(unsigned int l,Socket * s){
+    city=false;
+    winner=-1;
+    ai1=false;
+    ai2=false;
+    filme=false;
+    frameready=false;
+    player1=true;
+    contagem=0;
+    select=-1;
+    this->sock=s;
+    pix.makeCheckBoard2();				// cria texturas
+	pix.setTexture(200);
+    this->board.erase(board.begin(), board.end());
+    vector<Peca *> b(l+1,NULL);
+    vector<vector<Peca * > > a(l+1,b);   
+    this->board=a;
+    glNewList(5, GL_COMPILE);
+	
+    glPushMatrix();
+    paralelo2(size_casa*l, 1, size_casa*l,200,l);
+    glPopMatrix();
+    
+	glEndList();
+    this->n_vertices=l+1;
+    this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive("initialize.\n"))));
+    /*
+     for(int x=1;x<n_vertices;x+=2){
+     for(int y=1;y<4;y++){
+     this->board[y][x]=new Peca(1);
+     }
+     }
+     for(int x=0;x<n_vertices;x+=2){
+     for(int y=6;y<n_vertices-1;y++){
+     this->board[y][x]=new Peca(2);
+     }
+     }*/
+    Peca * p=new Peca(1);
+    p->makecity();
+    drawerp1.push_back(p);
+    /*p=new Peca(1);
+     
+     drawerp1.push_back(p);*/
+    p=new Peca(2);
+    p->makecity();
+    
+    drawerp2.push_back(p);
+    /*p=new Peca(2);
+     drawerp2.push_back(p);
+     p=new Peca(2);
+     drawerp2.push_back(p);*/
+}
+
+
 int Board::tryselect(int index, int jogador1){
     if(filme){
         return 0;
@@ -706,7 +760,7 @@ int Board::tryselect(int index, int jogador1){
             city=false;
     }
     string actual_board=this->stinguify();
-    cout<<"Stringified: "<<actual_board<<endl;
+    //cout<<"Stringified: "<<actual_board<<endl;
     int jogador=2;
     if(player1){
         jogador=1;
@@ -757,7 +811,7 @@ int Board::tryselect(int index, int jogador1){
                         
                         if(!city){
                             string msg=this->strexecutamov(jogador, 1, j+1, -1,-1, -1);
-                            cout<<"execut: "<<msg<<endl;
+                            //cout<<"execut: "<<msg<<endl;
                             select=-1;
                             string received_board=sock->innerfunc(sock->sendandreceive(msg));
                             if(received_board==actual_board){
@@ -773,7 +827,7 @@ int Board::tryselect(int index, int jogador1){
                             this->settabuleiro(sock->slitarray(received_board));
                         }else{
                             string msg=this->strexecutamov(this->board[sy][sx]->getPlayer(), 2,  sy+1, sx+1, i+1,j+1);
-                            cout<<"execut: "<<msg<<endl;
+                           // cout<<"execut: "<<msg<<endl;
                             select=-1;
                             string received_board=sock->innerfunc(sock->sendandreceive(msg));
                             if(received_board==actual_board){
@@ -807,7 +861,7 @@ int Board::tryselect(int index, int jogador1){
                         
                         if(!city){
                             string msg=this->strexecutamov(jogador, 1, j+1, -1,-1, -1);
-                            cout<<"execut: "<<msg<<endl;
+                            //cout<<"execut: "<<msg<<endl;
                             select=-1;
                             string received_board=sock->innerfunc(sock->sendandreceive(msg));
                             if(received_board==actual_board){
@@ -823,7 +877,7 @@ int Board::tryselect(int index, int jogador1){
                             this->settabuleiro(sock->slitarray(received_board));
                         }else{
                         string msg=this->strexecutamov(this->board[sy][sx]->getPlayer(), 1,  sy+1, sx+1, i+1,j+1);
-                        cout<<"execut: "<<msg<<endl;
+                        //cout<<"execut: "<<msg<<endl;
                         select=-1;
                         string received_board=sock->innerfunc(sock->sendandreceive(msg));
                             if(received_board==actual_board){
@@ -846,6 +900,26 @@ int Board::tryselect(int index, int jogador1){
     return 0;
 }
 
+Board::~Board(){
+    for (int i=0; i<drawerp1.size(); i++) {
+        delete drawerp1[i];
+    }
+    for (int i=0; i<drawerp2.size(); i++) {
+        delete drawerp2[i];
+    }
+    drawerp1.erase(drawerp1.begin(), drawerp1.end());
+    drawerp2.erase(drawerp2.begin(), drawerp2.end());
+    for(int i=0; i<this->board.size();i++){
+        for(int j=0;j<this->board[i].size();j++){
+            if(this->board[i][j]!=NULL){
+                delete this->board[i][j];
+                this->board[i][j]=NULL;
+            }
+        }
+    }
+    Peca::id_s=1;
+    
+}
 
 
 int Board::draw(GLenum mode){
@@ -981,7 +1055,7 @@ int Board::draw(GLenum mode){
                 if(movi[i].altura>1){
                     movi[i].altura-=0.1;
                 }else{
-                    cout<<"delete "<<movi[i].altura<<endl;
+                   //cout<<"delete "<<movi[i].altura<<endl;
                     if(movi[i].finj>=0){
                         this->board[movi[i].fini][movi[i].finj]->set_hidden(false);
                         delete movi[i].ptr;

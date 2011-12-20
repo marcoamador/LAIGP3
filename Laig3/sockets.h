@@ -178,7 +178,7 @@ public:
                 string nova(line);
                 //cout<<nova<<endl;
                 string cleaned=cleanline(nova);
-                cout<<cleaned<<endl;
+               // cout<<cleaned<<endl;
                 if(cleaned.size()!=0){
                     a.push_back(cleaned);
                 }

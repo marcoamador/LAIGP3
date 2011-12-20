@@ -653,6 +653,18 @@ void setai1(int dummy){
 void setai2(int dummy){
     tabuleiro->setAi2(ai2);
 }
+
+void new_game(int dummy){
+    Socket * tmp=tabuleiro->getsocket();
+
+    delete tabuleiro;
+    
+    tabuleiro= new Board(9,tmp);
+        in_menu=false;
+    game_timer.reset();
+
+}
+
 int main(int argc, char* argv[])
 {
     atexit(closeconnection);
@@ -696,6 +708,8 @@ int main(int argc, char* argv[])
     glui2->add_checkbox("AI Player1",&ai1,-1,setai1);
     glui2->add_checkbox("AI Player2",&ai2,-1,setai2);
     glui2->add_checkbox("Top view",&nfree,-1,setai2);
+    glui2->add_column(false);
+    glui2->add_button("New Game",-1,new_game);
     //glui2->add_button("Player 1 ai",-1,tryai1);
 	//glui2->add_button("Player 2 ai",-1,tryai);
 	/* We register the idle callback with GLUI, not with GLUT */

@@ -18,6 +18,10 @@ public:
 	int getSeconds();
 	std::string getTime();
 	void increment();
+    void reset(){
+        minutes=0;
+        seconds=0;
+    }
 };
 
 #endif
