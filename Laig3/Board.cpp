@@ -86,9 +86,28 @@ int Board::moveto(int x, int y){
 }
 
 int Board::play(){
-    this->frame=1;
-    this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive("initialize.\n"))),false);
+    this->frame=0;
     this->filme=true;
+    for (int i=0; i<drawerp1.size(); i++) {
+        delete drawerp1[i];
+    }
+    for (int i=0; i<drawerp2.size(); i++) {
+        delete drawerp2[i];
+    }
+    drawerp1.erase(drawerp1.begin(), drawerp1.end());
+    drawerp2.erase(drawerp2.begin(), drawerp2.end());
+    Peca * p=new Peca(1);
+    p->makecity();
+    drawerp1.push_back(p);
+    /*p=new Peca(1);
+     
+     drawerp1.push_back(p);*/
+    p=new Peca(2);
+    p->makecity();
+    
+    drawerp2.push_back(p);
+    this->settabuleiro(sock->slitarray(sock->innerfunc(sock->sendandreceive("initialize.\n"))),false);
+    
     this->frameready=true;
     return 0;
 }
@@ -307,6 +326,8 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
             }
         }
     }
+    if(this->frame==0 &&filme==true)
+        return movement;
     if(entradas.size()>saidas.size()){
         for(int i=0; i<entradas.size();i++){
             if(Peca::char2player(newvec[entradas[i].first][entradas[i].second])==1)
@@ -601,7 +622,9 @@ Board::Board(unsigned int l){
 }
 
 int Board::tryselect(int index, int jogador1){
-    
+    if(filme){
+        return 0;
+    }
     for(int i=0; i<drawerp1.size() && city;i++){
         if(drawerp1[i]->is_city())
             city=false;
