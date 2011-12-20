@@ -449,7 +449,7 @@ vector<mov> Board::differences(vector<string> &newvec,bool newjog){
             struct mov tmp;
             tmp.inii=saidas[i].first;
             tmp.inij=saidas[i].second;
-            if(newjog){
+            if(newjog || filme){
             if(this->board[tmp.inii][tmp.inij]->getPlayer()==2){
                 tmp.finj=-1;
                 tmp.fini=drawerp1.size();
@@ -686,10 +686,10 @@ int Board::tryselect(int index, int jogador1){
     if(filme){
         return 0;
     }
-    if(jogador1 && ai1){
+    if(player1 && ai1){
         return 0;
     }
-    if (!jogador1 && ai2) {
+    if (!player1 && ai2) {
         return 0;
     }
     city=true;

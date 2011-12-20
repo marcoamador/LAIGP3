@@ -71,6 +71,7 @@ GLuint vinx;
 
 int ai1;
 int ai2;
+int nfree;
 int peca=10;
 int city=11;
 #define BUFFER_OFFSET(x)((char *)NULL+(x))
@@ -143,8 +144,21 @@ void drawScene(GLenum mode)
 	glLoadIdentity();
     
 	
-	glTranslated(0.0,0.0,-30.0);
-	glRotated(45.0, 1.0,0.0,0.0 );
+
+    if(nfree){
+        gluLookAt(0, 40, 0, 0, 0, 0, 0, 0, -1);
+    }else{
+        glTranslated(0.0,0.0,-30.0);
+        glRotated(45.0, 1.0,0.0,0.0 );
+        
+        
+        glTranslatef( obj_pos[0], obj_pos[1], -obj_pos[2] ); 
+        
+        glMultMatrixf( view_rotate );
+    
+    }
+    
+    
     if(!tabuleiro->rotateview()){
         if(angler<180){
             angler++;
@@ -160,10 +174,6 @@ void drawScene(GLenum mode)
         }
         
     }
-    
-    glTranslatef( obj_pos[0], obj_pos[1], -obj_pos[2] ); 
-    
-	glMultMatrixf( view_rotate );
     glRotated(angler, 0, 1.0, 0);
 	// tabuleiro
 	
@@ -671,6 +681,7 @@ int main(int argc, char* argv[])
     glui2->add_button("Back",-1,goback);
     glui2->add_checkbox("AI Player1",&ai1,-1,setai1);
     glui2->add_checkbox("AI Player2",&ai2,-1,setai2);
+    glui2->add_checkbox("Top view",&nfree,-1,setai2);
     //glui2->add_button("Player 1 ai",-1,tryai1);
 	//glui2->add_button("Player 2 ai",-1,tryai);
 	/* We register the idle callback with GLUI, not with GLUT */
