@@ -29,7 +29,7 @@ Scenario s;
 float xy_aspect;		// aspect ratio da area de visualizacao
 int window_w=DIMX;
 int window_h=DIMY;
-
+GLUI_Button * play_b=NULL;
 float view_rotate[16] = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 float obj_pos[] = { 0.0, 0.0, 0.0 };
 
@@ -210,6 +210,13 @@ void drawScene(GLenum mode)
 
 void display(void)
 {
+    if(tabuleiro->is_playing()){
+        play_b->set_name("Playing");
+        play_b->disable();
+    }else if(!play_b->enabled){
+        play_b->set_name("Play");
+        play_b->enable();
+    }
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -568,7 +575,7 @@ int main(int argc, char* argv[])
 	glui2->add_translation( "Zoom", GLUI_TRANSLATION_Z, &obj_pos[2] );
 	trans_z->set_speed( .02 );
     glui2->add_column( false );
-    glui2->add_button("Play",-1,playvideo);
+    play_b=glui2->add_button("Play",-1,playvideo);
     glui2->add_button("Back",-1,goback);
 	
 	/* We register the idle callback with GLUI, not with GLUT */

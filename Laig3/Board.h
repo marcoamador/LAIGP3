@@ -88,6 +88,10 @@ public:
     string strverificafim();
     int play();
     void nextframe( int i);
+    bool is_playing(){
+    
+        return this->filme;
+    }
     int exit_sock(){
         cout<<sock->sendandreceive("bye.\n")<<endl;
         sock->closes();
