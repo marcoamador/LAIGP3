@@ -188,6 +188,13 @@ public:
             return a;
             
         }
+        void closes(){
+#ifndef _WIN32
+            close(fd);
+#else
+            #endif
+
+        }
         
     };
     

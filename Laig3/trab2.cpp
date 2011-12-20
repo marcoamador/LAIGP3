@@ -516,6 +516,20 @@ void closeconnection(){
     }
 }
 
+void playvideo(int dummy){
+    if(tabuleiro!=NULL){
+        tabuleiro->play();
+    }
+
+}
+
+void goback(int dummy){
+    if (tabuleiro!=NULL) {
+        tabuleiro->go_back();
+    }
+
+}
+
 int main(int argc, char* argv[])
 {
     atexit(closeconnection);
@@ -547,13 +561,15 @@ int main(int argc, char* argv[])
 	glui2->add_column( false );
 
 	
-	glui3 = GLUI_Master.create_glui_subwindow( main_window, GLUI_SUBWINDOW_BOTTOM);
-	glui3->set_main_gfx_window( main_window );
+	//glui3 = GLUI_Master.create_glui_subwindow( main_window, GLUI_SUBWINDOW_BOTTOM);
+	//glui3->set_main_gfx_window( main_window );
 
 	GLUI_Translation *trans_z = 
-	glui3->add_translation( "Zoom", GLUI_TRANSLATION_Z, &obj_pos[2] );
+	glui2->add_translation( "Zoom", GLUI_TRANSLATION_Z, &obj_pos[2] );
 	trans_z->set_speed( .02 );
-
+    glui2->add_column( false );
+    glui2->add_button("Play",-1,playvideo);
+    glui2->add_button("Back",-1,goback);
 	
 	/* We register the idle callback with GLUI, not with GLUT */
 	GLUI_Master.set_glutIdleFunc( myGlutIdle );

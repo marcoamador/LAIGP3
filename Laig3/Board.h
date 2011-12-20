@@ -89,7 +89,8 @@ public:
     int play();
     void nextframe( int i);
     int exit_sock(){
-        sock->sendandreceive("bye.\n");
+        cout<<sock->sendandreceive("bye.\n")<<endl;
+        sock->closes();
         return 0;
     }
     bool rotateview(){
