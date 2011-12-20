@@ -524,6 +524,7 @@ void myGlutIdle( void )
 
 }
 void tick_timer(int d){
+    if(!tabuleiro->is_playing())
     game_timer.increment();
     glutTimerFunc(1000, tick_timer, 0);
 }
