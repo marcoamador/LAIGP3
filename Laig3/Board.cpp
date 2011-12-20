@@ -283,6 +283,7 @@ int Board::go_back(){
             p->makecity();
         tab[j.saida[i].i][j.saida[i].j]=p;
     }
+        city=false;
         this->settabuleiro(sock->slitarray(this->stinguify(tab)), false);
     player1=!player1;
     }
