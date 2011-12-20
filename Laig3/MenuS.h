@@ -23,6 +23,7 @@ class MenuS
 public:
 	MenuS(void);
 	void draw();
+	void setTexture(int tex_id);
 	void setMenuStrings(vector<std::string> strings);
 	void drawStrings();
 	void setDimensions(int,int);
