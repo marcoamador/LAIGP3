@@ -626,6 +626,7 @@ void closeconnection(){
 
 void playvideo(int dummy){
     if(tabuleiro!=NULL){
+        in_menu=false;
         tabuleiro->play();
     }
 
