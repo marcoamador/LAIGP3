@@ -223,7 +223,7 @@ void paralelo2(GLdouble dimx, GLdouble dimy, GLdouble dimz,int tex,int l){
     
 }
 
-void paralelo3(GLdouble dimx, GLdouble dimy, GLdouble dimz,int tex,int l){
+void paralelo3(GLdouble dimx, GLdouble dimy, GLdouble dimz,int tex,int l, int tex2){
 	GLdouble dx=dimx/2, dy=dimy/2, dz=dimz/2;
 	
 	GLdouble v1[3] = {dx,-dy,dz};
@@ -303,7 +303,7 @@ void paralelo3(GLdouble dimx, GLdouble dimy, GLdouble dimz,int tex,int l){
     
 	// base
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 2002);
+	glBindTexture(GL_TEXTURE_2D, tex2);
 	newellSquare(v1,v5,v8,v2,normal);
 	glBegin(GL_POLYGON);
     glNormal3dv(normal);

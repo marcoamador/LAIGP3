@@ -36,7 +36,6 @@ GLUI_Button * play_b=NULL;
 float view_rotate[16] = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 float obj_pos[] = { 0.0, 0.0, 0.0 };
 
-
 // variaveis globais
 int main_window;
 GLUI *glui, *glui2, *glui3;
@@ -49,7 +48,7 @@ float mat2_shininess[] = {1.0};
 float mat2_specular[] = {0.4, 0.4, 0.4, 1.0}; /* specular reflection. */
 float mat2_diffuse[] = {0.3, 0.30, 0.30, 1.0}; /* diffuse reflection. */
 
-RGBpixmap pix[10];
+RGBpixmap pix[14];
 GLUquadric* glQ;
 
 
@@ -57,6 +56,16 @@ GLUquadric* glQ;
 float dx=0.0, dy=0.0, dz=0.0, dxAc=0.0, dzAc=0.0;	// variaveis auxiliares de posicao
 float Xini=0, Yini=0;
 picking *pk;										// apontador para a classe que controla a posicao dos objectos
+
+
+//id's das texturas dos temas
+int default_tex1 = 2006;
+int default_tex2 = 2005;
+int default_tex3 = 2003;
+int default_tex4 = 2002;
+
+int cur_tex_set = 1;
+int cur_tex1, cur_tex2, cur_tex3, cur_tex4;
 
 
 Board * tabuleiro=NULL;
@@ -69,6 +78,8 @@ MenuS main_menu;
 bool in_menu=false;
 GLuint vbo;
 GLuint vinx;
+
+
 
 int ai1;
 int ai2;
@@ -262,7 +273,7 @@ void drawScene(GLenum mode)
 
 	// fim teapot
 */
-    s.draw();
+    s.draw(cur_tex1, cur_tex2, cur_tex3, cur_tex4);
 	glDisable(GL_COLOR_MATERIAL);
 
 }
@@ -571,6 +582,20 @@ void inicializacao()
 	pix[4].setTexture(2005);
 	pix[5].readBMPFile("metal.bmp");
 	pix[5].setTexture(2006);
+	pix[6].readBMPFile("steel.bmp");
+	pix[6].setTexture(2007);
+	pix[7].readBMPFile("space.bmp");
+	pix[7].setTexture(2008);
+	pix[8].readBMPFile("mogno.bmp");
+	pix[8].setTexture(2009);
+	pix[9].readBMPFile("tarmac.bmp");
+	pix[9].setTexture(2010);
+	pix[10].readBMPFile("wood3.bmp");
+	pix[10].setTexture(2011);
+	pix[11].readBMPFile("cimento.bmp");
+	pix[11].setTexture(2012);
+	pix[12].readBMPFile("relva.bmp");
+	pix[12].setTexture(2013);
 
 	// por defeito a cor e de fundo e o preto
 	//glClearColor(1.0,1.0,1.0,1.0);
@@ -598,6 +623,11 @@ void inicializacao()
 		paralelo(10.0,1.0,10.0);
 		glPopMatrix();
 	glEndList();
+
+	cur_tex1 = default_tex1;
+	cur_tex2 = default_tex2;
+	cur_tex3 = default_tex3;
+	cur_tex4 = default_tex4;
     
     tabuleiro= new Board(9);
     glNewList(peca, GL_COMPILE);
@@ -665,6 +695,34 @@ void new_game(int dummy){
 
 }
 
+int f = 0;
+
+void handleTexPack(int d){
+	int g=f;
+	if(g==1){
+		cur_tex1 = 2006;
+		cur_tex2 = 2005;
+		cur_tex3 = 2003;
+		cur_tex4 = 2002;
+		cur_tex_set=1;
+		
+	}
+	else if(g==2){
+		cur_tex1 = 2007;
+		cur_tex2 = 2009;
+		cur_tex3 = 2008;
+		cur_tex4 = 2010;
+		cur_tex_set=2;
+	}
+	else if(g==3){
+		cur_tex1 = 2011;
+		cur_tex2 = 2011;
+		cur_tex3 = 2012;
+		cur_tex4 = 2013;
+		cur_tex_set=3;
+	}
+}
+
 int main(int argc, char* argv[])
 {
     atexit(closeconnection);
@@ -710,6 +768,11 @@ int main(int argc, char* argv[])
     glui2->add_checkbox("Top view",&nfree,-1,setai2);
     glui2->add_column(false);
     glui2->add_button("New Game",-1,new_game);
+	glui2->add_column( false );
+	GLUI_Listbox *listbox = glui2->add_listbox("Cenarios",&f,3,handleTexPack);
+	listbox->add_item(1, "Tema 1");
+	listbox->add_item(2, "Tema 2");
+	listbox->add_item(3, "Tema 3");
     //glui2->add_button("Player 1 ai",-1,tryai1);
 	//glui2->add_button("Player 2 ai",-1,tryai);
 	/* We register the idle callback with GLUI, not with GLUT */

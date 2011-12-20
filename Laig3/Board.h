@@ -115,7 +115,7 @@ public:
     }
     int exit_sock(){
         sock->closes();
-        //cout<<sock->sendandreceive("bye.\n")<<endl;
+        cout<<sock->sendandreceive("bye.\n")<<endl;
         
         return 0;
     }

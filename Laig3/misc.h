@@ -25,7 +25,7 @@ void newellSquare(GLdouble *vec1,GLdouble *vec2,GLdouble *vec3,GLdouble *vec4,GL
 void paralelo(GLdouble dimx, GLdouble dimy, GLdouble dimz);
 
 void paralelo2(GLdouble dimx, GLdouble dimy, GLdouble dimz,int texture,int l);
-void paralelo3(GLdouble dimx, GLdouble dimy, GLdouble dimz,int tex,int l);
+void paralelo3(GLdouble dimx, GLdouble dimy, GLdouble dimz,int tex,int l, int tex2);
 void paralelo4(GLdouble dimx, GLdouble dimy, GLdouble dimz,int tex,int l);
 
 #endif

@@ -14,8 +14,13 @@
 class Scenario
 {
 public:
+	//Tex1 - cilindro
+	//Tex2 - mesa
+	//Tex3 - cenário circundante
+	//Tex4 - solo
+	int tex1, tex2, tex3, tex4;
 	Scenario(void);
-	void draw();
+	void draw(int, int, int, int);
 };
 
 #endif

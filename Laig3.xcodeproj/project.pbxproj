@@ -24,6 +24,13 @@
 		2CCF7422149E791900F282EB /* chao.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CCF741E149E78FB00F282EB /* chao.bmp */; };
 		2CCF7423149E791900F282EB /* sky.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CCF741F149E78FB00F282EB /* sky.bmp */; };
 		2CE49B4214A0302200684DEA /* TimerS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE49B4114A0302200684DEA /* TimerS.cpp */; };
+		2CE49B4B14A05A1700684DEA /* cimento.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CE49B4414A05A0800684DEA /* cimento.bmp */; };
+		2CE49B4C14A05A1700684DEA /* mogno.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CE49B4514A05A0800684DEA /* mogno.bmp */; };
+		2CE49B4D14A05A1700684DEA /* relva.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CE49B4614A05A0800684DEA /* relva.bmp */; };
+		2CE49B4E14A05A1700684DEA /* space.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CE49B4714A05A0800684DEA /* space.bmp */; };
+		2CE49B4F14A05A1700684DEA /* steel.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CE49B4814A05A0800684DEA /* steel.bmp */; };
+		2CE49B5014A05A1700684DEA /* tarmac.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CE49B4914A05A0800684DEA /* tarmac.bmp */; };
+		2CE49B5114A05A1700684DEA /* wood3.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CE49B4A14A05A0800684DEA /* wood3.bmp */; };
 		2CEA20F0149AD76C005E4F46 /* sockets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEA20EF149AD76B005E4F46 /* sockets.cpp */; };
 /* End PBXBuildFile section */
 
@@ -40,10 +47,17 @@
 		};
 		2CCF7420149E790D00F282EB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				2CE49B4B14A05A1700684DEA /* cimento.bmp in CopyFiles */,
+				2CE49B4C14A05A1700684DEA /* mogno.bmp in CopyFiles */,
+				2CE49B4D14A05A1700684DEA /* relva.bmp in CopyFiles */,
+				2CE49B4E14A05A1700684DEA /* space.bmp in CopyFiles */,
+				2CE49B4F14A05A1700684DEA /* steel.bmp in CopyFiles */,
+				2CE49B5014A05A1700684DEA /* tarmac.bmp in CopyFiles */,
+				2CE49B5114A05A1700684DEA /* wood3.bmp in CopyFiles */,
 				2CAD7195149ECA03006D1757 /* metal.bmp in CopyFiles */,
 				2CAD7196149ECA03006D1757 /* mesa.bmp in CopyFiles */,
 				2CCF7421149E791900F282EB /* building.bmp in CopyFiles */,
@@ -83,6 +97,13 @@
 		2CE49B3F14A0250B00684DEA /* cannon.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = cannon.pl; sourceTree = "<group>"; };
 		2CE49B4114A0302200684DEA /* TimerS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimerS.cpp; sourceTree = "<group>"; };
 		2CE49B4314A0302C00684DEA /* TimerS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerS.h; sourceTree = "<group>"; };
+		2CE49B4414A05A0800684DEA /* cimento.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = cimento.bmp; sourceTree = "<group>"; };
+		2CE49B4514A05A0800684DEA /* mogno.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = mogno.bmp; sourceTree = "<group>"; };
+		2CE49B4614A05A0800684DEA /* relva.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = relva.bmp; sourceTree = "<group>"; };
+		2CE49B4714A05A0800684DEA /* space.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = space.bmp; sourceTree = "<group>"; };
+		2CE49B4814A05A0800684DEA /* steel.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = steel.bmp; sourceTree = "<group>"; };
+		2CE49B4914A05A0800684DEA /* tarmac.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = tarmac.bmp; sourceTree = "<group>"; };
+		2CE49B4A14A05A0800684DEA /* wood3.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = wood3.bmp; sourceTree = "<group>"; };
 		2CEA20EF149AD76B005E4F46 /* sockets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sockets.cpp; sourceTree = "<group>"; };
 		2CEA20F2149AD782005E4F46 /* sockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sockets.h; sourceTree = "<group>"; };
 		2CEA20F9149CAD2B005E4F46 /* city.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = city.h; sourceTree = "<group>"; };
@@ -124,6 +145,13 @@
 		2C4BECC71496B9760010A59A /* Laig3 */ = {
 			isa = PBXGroup;
 			children = (
+				2CE49B4414A05A0800684DEA /* cimento.bmp */,
+				2CE49B4514A05A0800684DEA /* mogno.bmp */,
+				2CE49B4614A05A0800684DEA /* relva.bmp */,
+				2CE49B4714A05A0800684DEA /* space.bmp */,
+				2CE49B4814A05A0800684DEA /* steel.bmp */,
+				2CE49B4914A05A0800684DEA /* tarmac.bmp */,
+				2CE49B4A14A05A0800684DEA /* wood3.bmp */,
 				2CE49B4314A0302C00684DEA /* TimerS.h */,
 				2CE49B4114A0302200684DEA /* TimerS.cpp */,
 				2CE49B3F14A0250B00684DEA /* cannon.pl */,
