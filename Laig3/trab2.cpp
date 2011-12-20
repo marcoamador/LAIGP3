@@ -97,7 +97,7 @@ void drawScene(GLenum mode)
 	
 	glTranslated(0.0,0.0,-30.0);
 	glRotated(45.0, 1.0,0.0,0.0 );
-    if(!changesides){
+    if(!tabuleiro->rotateview()){
         if(angler<180){
             angler++;
         }else{

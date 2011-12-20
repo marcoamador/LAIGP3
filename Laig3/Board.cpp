@@ -185,6 +185,8 @@ int Board::settabuleiro(vector<string> tab){
 
 int Board::go_back(){
     if(jogadas.size()>1){
+        
+        select=-1;
     vector<vector<Peca*> > tab=this->board;
     struct jogada j=*(this->jogadas.end()-1);
     this->jogadas.erase(this->jogadas.end()-1);
@@ -204,7 +206,9 @@ int Board::go_back(){
         tab[j.saida[i].i][j.saida[i].j]=p;
     }
         this->settabuleiro(sock->slitarray(this->stinguify(tab)), false);
+    player1=!player1;
     }
+    
     return 0;
 }
 
@@ -550,6 +554,7 @@ Board::Board(unsigned int l){
     city=false;    
     filme=false;
     frameready=false;
+    player1=true;
     contagem=0;
     select=-1;
     this->sock=new Socket("127.0.0.1",60001);
@@ -582,21 +587,35 @@ Board::Board(unsigned int l){
     Peca * p=new Peca(1);
     p->makecity();
     drawerp1.push_back(p);
-    p=new Peca(1);
+    /*p=new Peca(1);
    
-    drawerp1.push_back(p);
+    drawerp1.push_back(p);*/
     p=new Peca(2);
     p->makecity();
+    
+    drawerp2.push_back(p);
+    /*p=new Peca(2);
     drawerp2.push_back(p);
     p=new Peca(2);
-    drawerp2.push_back(p);
-    p=new Peca(2);
-    drawerp2.push_back(p);
+    drawerp2.push_back(p);*/
 }
 
-int Board::tryselect(int index, int jogador){
+int Board::tryselect(int index, int jogador1){
+    
+    for(int i=0; i<drawerp1.size() && city;i++){
+        if(drawerp1[i]->is_city())
+            city=false;
+    }
+    for(int i=0; i<drawerp2.size() && city;i++){
+        if(drawerp2[i]->is_city())
+            city=false;
+    }
     string actual_board=this->stinguify();
     cout<<"Stringified: "<<actual_board<<endl;
+    int jogador=2;
+    if(player1){
+        jogador=1;
+    }
     if(select<0 && city){ 
         cout<<"selecionada: "<<index<<endl;
         for (int i=0; i<drawerp1.size(); i++) {
@@ -669,6 +688,7 @@ int Board::tryselect(int index, int jogador){
                             }
                             this->settabuleiro(sock->slitarray(received_board));    
                         }
+                        player1=!player1;
                         return 2;
 
                         
@@ -718,6 +738,7 @@ int Board::tryselect(int index, int jogador){
                             }
                          this->settabuleiro(sock->slitarray(received_board));    
                         }
+                        player1=!player1;
                         return 2;
                         
                     }

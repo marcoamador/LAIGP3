@@ -73,6 +73,7 @@ class Board {
     int playframe();
     vector<Peca*> drawerp1;
     vector<Peca*> drawerp2;
+    bool player1;
 public:
     Board();
     Board(unsigned int l);
@@ -90,6 +91,9 @@ public:
     int exit_sock(){
         sock->sendandreceive("bye.\n");
         return 0;
+    }
+    bool rotateview(){
+        return !player1;
     }
     
 };
