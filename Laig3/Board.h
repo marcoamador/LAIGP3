@@ -76,6 +76,7 @@ class Board {
     bool player1;
     bool ai1;
     bool ai2;
+    int winner;
 public:
     Board();
     Board(unsigned int l);
@@ -118,6 +119,9 @@ public:
     }
     bool rotateview(){
         return !player1;
+    }
+    int getWinner(){
+        return winner;
     }
     
 };

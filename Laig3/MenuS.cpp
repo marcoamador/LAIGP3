@@ -104,7 +104,7 @@ void MenuS::draw(GLenum mode){
     glLoadIdentity();
     this->draw2(mode);
     glEnable(GL_DEPTH_TEST);
-    //drawStrings();
+    drawStrings();
     glPopMatrix();
     
 }

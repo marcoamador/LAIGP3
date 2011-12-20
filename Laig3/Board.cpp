@@ -325,10 +325,13 @@ int Board::settabuleiro(vector<string> tab,bool diff){
             }
         }
     }
+    if(city && !filme){
     string winner=sock->innerfunc(sock->sendandreceive(this->strverificafim()));
     cout<<"winner: "<<winner<<endl;
     if(winner!="-1"){
+        this->winner=atoi(winner.c_str());
         return atoi(winner.c_str());
+    }
     }
     for (int i=0; i<movi.size();i++) {
         if(movi[i].finj>=0)
@@ -631,7 +634,8 @@ string Board::stinguify(){
 }
 
 Board::Board(unsigned int l){
-    city=false;  
+    city=false;
+    winner=-1;
     ai1=false;
     ai2=false;
     filme=false;

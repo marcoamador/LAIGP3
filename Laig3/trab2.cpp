@@ -8,6 +8,7 @@
 #endif
 #include "boarditem.h"
 #include <math.h>
+#include <sstream>
 #include "Board.h"
 #include "RGBpixmap.h"
 #include <iostream>
@@ -269,6 +270,17 @@ void drawScene(GLenum mode)
 void display(void)
 {
     if(!in_menu){
+        if(tabuleiro->getWinner()>0){
+            vector<string> menu_strings;
+            menu_strings.push_back("Game Over");
+            menu_strings.push_back("The Winner");
+            menu_strings.push_back("is");
+            stringstream ss;
+            ss<<"Player "<<tabuleiro->getWinner()<<"!!!";
+            menu_strings.push_back(ss.str());
+            main_menu.setMenuStrings(menu_strings);
+            in_menu=true;
+        }
     if(tabuleiro->is_playing()){
         play_b->set_name("Playing");
         play_b->disable();
