@@ -9,11 +9,7 @@ void MenuS::setTexture(int tex){
 	tex_id = tex;
 }
 
-void MenuS::draw(){
-	glPushMatrix();
-	glDisable(GL_DEPTH_TEST);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+void MenuS::draw2(GLenum mode){
 	glOrtho(0,width,0,height,-1.0,1.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -28,6 +24,8 @@ void MenuS::draw(){
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,tex_id);
     glPushMatrix();
+    if (mode == GL_SELECT)
+		glLoadName (0);	
     glBegin(GL_POLYGON);
     glTexCoord2f(0,0);
     glVertex2d(height*0.0,height*0.0);
@@ -41,7 +39,10 @@ void MenuS::draw(){
     glPopMatrix();
     
     glPushMatrix();
+    if (mode == GL_SELECT)
+		glLoadName (1);	
     glTranslated(0,-30,0);
+    
     glBegin(GL_POLYGON);
     glColor4f(192,192,192,255);
     glVertex2d(height*0.2,height*0.73);
@@ -56,7 +57,10 @@ void MenuS::draw(){
     
     
     glPushMatrix();
+    if (mode == GL_SELECT)
+		glLoadName (2);	
     glTranslated(0,-90,0);
+    
     glBegin(GL_POLYGON);
     glColor4f(192,192,192,255);
     glVertex2d(height*0.2,height*0.6);
@@ -70,8 +74,11 @@ void MenuS::draw(){
     glPopMatrix();
     
     glPushMatrix();
+    if (mode == GL_SELECT)
+		glLoadName (3);	
     glTranslated(0,-97,0);
     glBegin(GL_POLYGON);
+    
     glColor4f(192,192,192,255);
     glVertex2d(height*0.2,height*0.36);
     
@@ -87,8 +94,17 @@ void MenuS::draw(){
     
     glDisable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
+
+}
+
+void MenuS::draw(GLenum mode){
+	glPushMatrix();
+	glDisable(GL_DEPTH_TEST);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    this->draw2(mode);
     glEnable(GL_DEPTH_TEST);
-    drawStrings();
+    //drawStrings();
     glPopMatrix();
     
 }

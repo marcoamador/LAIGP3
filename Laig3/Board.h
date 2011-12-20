@@ -111,8 +111,9 @@ public:
         return this->filme;
     }
     int exit_sock(){
-        cout<<sock->sendandreceive("bye.\n")<<endl;
         sock->closes();
+        //cout<<sock->sendandreceive("bye.\n")<<endl;
+        
         return 0;
     }
     bool rotateview(){

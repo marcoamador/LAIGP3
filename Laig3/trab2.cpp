@@ -65,7 +65,7 @@ float angler=180;
 TimerS game_timer;
 MenuS main_menu;
 
-
+bool in_menu=false;
 GLuint vbo;
 GLuint vinx;
 
@@ -258,6 +258,7 @@ void drawScene(GLenum mode)
 
 void display(void)
 {
+    if(!in_menu){
     if(tabuleiro->is_playing()){
         play_b->set_name("Playing");
         play_b->disable();
@@ -273,7 +274,7 @@ void display(void)
         }else if(tabuleiro->is_player2ai()){
             glutTimerFunc(800,tryai , 1);
         }
-    }
+    }}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
  
@@ -288,9 +289,10 @@ void display(void)
     gluQuadricTexture(glQ, GL_FALSE);
 	glPolygonMode(GL_FRONT, GL_FILL);
 
-	
-	drawScene(GL_RENDER);
-    main_menu.draw();
+	if(!in_menu){
+        drawScene(GL_RENDER);}
+    else{
+        main_menu.draw(GL_RENDER);}
 	drawTimer();
 	// swapping the buffers causes the rendering above to be shown
 	glutSwapBuffers();
@@ -381,13 +383,15 @@ void processMouse(int button, int state, int x, int y)
         }
         if(tabuleiro->processmove(pk->getObjecto(), dxx, 0, dzz))
             changesides=!changesides;*/
+        if(!in_menu){
         int jogador=1;
         if (changesides) {
             jogador=2;
         }
         if(tabuleiro->tryselect(pk->getObjecto(),jogador)==2){
        changesides=!changesides;
-        }
+        }}
+        cout<<"Objecto: "<<pk->getObjecto()<<endl;
         pk->resetdAc();
         
         return;
@@ -410,7 +414,10 @@ void processMouse(int button, int state, int x, int y)
 
     glFrustum( -xy_aspect*.04, xy_aspect*.04, -.04, .04, .1, 50.0 );
 
-	drawScene(GL_SELECT);
+	if(!in_menu)
+        drawScene(GL_SELECT);
+    else
+        main_menu.draw(GL_SELECT);
 
     glMatrixMode (GL_PROJECTION);
     glPopMatrix ();

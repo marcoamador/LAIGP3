@@ -22,7 +22,8 @@ class MenuS
 	int height, width;
 public:
 	MenuS(void);
-	void draw();
+	void draw(GLenum mode);
+    void draw2(GLenum mode);
 	void setTexture(int tex_id);
 	void setMenuStrings(vector<std::string> strings);
 	void drawStrings();
