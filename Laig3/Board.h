@@ -74,6 +74,8 @@ class Board {
     vector<Peca*> drawerp1;
     vector<Peca*> drawerp2;
     bool player1;
+    bool ai1;
+    bool ai2;
 public:
     Board();
     Board(unsigned int l);
@@ -89,6 +91,21 @@ public:
     void ai_play(int player, int level);
     int play();
     void nextframe( int i);
+    bool is_player1ai(){
+        return ai1;
+    }
+    bool is_player2ai(){
+        return ai2;
+    }
+    void setAi1(bool a){
+        ai1=a;
+    }
+    void setAi2(bool a){
+        ai2=a;
+    }
+    bool is_stopped(){
+        return movi.size()==0;
+    }
     bool is_playing(){
     
         return this->filme;

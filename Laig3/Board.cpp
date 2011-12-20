@@ -631,7 +631,9 @@ string Board::stinguify(){
 }
 
 Board::Board(unsigned int l){
-    city=false;    
+    city=false;  
+    ai1=false;
+    ai2=false;
     filme=false;
     frameready=false;
     player1=true;
@@ -682,6 +684,12 @@ Board::Board(unsigned int l){
 
 int Board::tryselect(int index, int jogador1){
     if(filme){
+        return 0;
+    }
+    if(jogador1 && ai1){
+        return 0;
+    }
+    if (!jogador1 && ai2) {
         return 0;
     }
     city=true;
@@ -835,7 +843,9 @@ int Board::tryselect(int index, int jogador1){
 }
 
 
+
 int Board::draw(GLenum mode){
+    this->frameready=false;
     if (mode == GL_SELECT)
 		glLoadName (0);	
     glCallList(5);

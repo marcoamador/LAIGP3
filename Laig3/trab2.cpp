@@ -64,10 +64,13 @@ float angler=180;
 GLuint vbo;
 GLuint vinx;
 
+int ai1;
+int ai2;
 int peca=10;
 int city=11;
 #define BUFFER_OFFSET(x)((char *)NULL+(x))
-
+void tryai(int dummy);
+void tryai1(int dummy);
 void changeframe(int i){
     tabuleiro->nextframe(i);
 }
@@ -217,7 +220,15 @@ void display(void)
         play_b->set_name("Play");
         play_b->enable();
     }
-	
+	if(tabuleiro->is_stopped()){
+        if(!tabuleiro->rotateview()){
+            if(tabuleiro->is_player1ai()){
+                glutTimerFunc(800,tryai1 , 1);
+            }
+        }else if(tabuleiro->is_player2ai()){
+            glutTimerFunc(800,tryai , 1);
+        }
+    }
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
  
@@ -544,6 +555,13 @@ void tryai(int dummy){
 void tryai1(int dummy){
     tabuleiro->ai_play(1, 2);
 }
+void setai1(int dummy){
+    tabuleiro->setAi1(ai1);
+}
+
+void setai2(int dummy){
+    tabuleiro->setAi2(ai2);
+}
 int main(int argc, char* argv[])
 {
     atexit(closeconnection);
@@ -584,8 +602,10 @@ int main(int argc, char* argv[])
     glui2->add_column( false );
     play_b=glui2->add_button("Play",-1,playvideo);
     glui2->add_button("Back",-1,goback);
-    glui2->add_button("Player 1 ai",-1,tryai1);
-	glui2->add_button("Player 2 ai",-1,tryai);
+    glui2->add_checkbox("AI Player1",&ai1,-1,setai1);
+    glui2->add_checkbox("AI Player2",&ai2,-1,setai2);
+    //glui2->add_button("Player 1 ai",-1,tryai1);
+	//glui2->add_button("Player 2 ai",-1,tryai);
 	/* We register the idle callback with GLUI, not with GLUT */
 	GLUI_Master.set_glutIdleFunc( myGlutIdle );
    
